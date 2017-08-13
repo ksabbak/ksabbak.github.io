@@ -1,0 +1,68 @@
+/*color: #fc3592 */
+
+body {
+	padding: 2.5em;
+	padding-top: 3em;
+	font-family: "Source Code Pro";
+	font-size: 62.5%;
+	display: grid;
+	grid-template-columns: 25% 25% 25% 25%;
+	grid-template-rows: 33% 33% 33%; /*25% 25% 25% 25%;*/
+	grid-gap: 2em;
+}
+
+header {
+	grid-column-start: 1;
+	grid-column-end: 3;
+	grid-row-start: 2;
+	margin-left: 3em;
+	height: 100%;
+	color: #fc3592;
+}
+.title {
+	font-size: 8em;
+	margin: 0;
+}
+.subtitle {
+	font-size: 5em;
+	margin: 0;
+}
+
+nav {
+	grid-column-start: 3;
+	grid-column-end: -1;
+	grid-row-start: 1;
+	grid-row-end: 3;
+	font-size: 2em;
+	line-height: 3;
+}
+nav ul {
+	list-style-type: none;
+}
+
+nav a {
+	color: #fc3592;
+}
+
+nav li:hover {
+	color: #fc3592;
+}
+
+nav a:hover {
+	color: black;
+	font-style: italic;
+}
+
+/*@media (max-width: 600px) {
+	body {
+		display: grid;
+		grid-template-columns: 100%;
+		grid-template-rows: 100%;
+	}
+	nav {
+		grid-row-start: 1;
+	}
+	header {
+		grid-row-start: 2;
+	}
+}*/
