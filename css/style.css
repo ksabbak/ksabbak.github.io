@@ -44,6 +44,10 @@ nav a {
 	color: #fc3592;
 }
 
+nav li:hover {
+	color: #fc3592;
+}
+
 nav a:hover {
 	color: black;
 	font-style: italic;
