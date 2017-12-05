@@ -1,9 +1,8 @@
-/*color: #fc3592 */
-
 body {
-	padding: 2.5em;
-	padding-top: 3em;
-	padding-left: 3.5em;
+	/*padding: 5em;*/
+	padding: 3%;
+	padding-top: 2%;
+	padding-left: 3%;
 	font-family: 'Source Code Pro';
 	font-size: 62.5%;
 	display: grid;
@@ -64,6 +63,9 @@ nav a:hover {
 	background-color: #fc3592;
 }
 
+::-webkit-scrollbar {
+	display: none;
+}
 /*@media (max-width: 600px) {
 	body {
 		display: grid;

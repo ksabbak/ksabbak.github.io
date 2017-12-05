@@ -1,17 +1,14 @@
 body {
-	padding: 2.5em;
-	padding-top: 3em;
-	padding-left: 3.5em;
-	font-family: 'Source Code Pro';
+	padding: 3%;
+	padding-top: 2%;
+	padding-left: 3%;
+	/*padding-right: 1em;*/
 	display: grid;
 	height: 90vh;
-	grid-template-columns: repeat(5, 1fr) 2%;
+	font-family: Verdana, Sans-Serif;
+	grid-template-columns: 1fr 10% repeat(3, 1fr) 2% 2%;
 	grid-template-rows: repeat(5, 1fr);
 	grid-gap: 2em;
-}
-
-h2 {
-	padding-left: 20%;
 }
 
 .stripe {
@@ -20,16 +17,35 @@ h2 {
 	background-color: #fc3592;
 }
 
-.content {
-	grid-column: 3/-2;
+.main {
+	grid-column: 3 / span 3;
+	grid-row: span 5;
 }
 
-.go-home {
+h2 {
+	font-size: 250%;
+}
+
+h2,
+.blog-title {
+	text-align: center;
+}
+
+.main a,
+nav li:hover,
+.title,
+nav a {
+	color: #fc3592;
+}
+
+.go-home,
+h3 a,
+nav a {
 	text-decoration: none;
 }
 
 .title {
-	color: #fc3592;
+	font-family: 'Source Code Pro';
 }
 
 nav ul {
@@ -40,16 +56,28 @@ nav li {
 	list-style-type: none;
 }
 
-nav a {
-	color: #fc3592;
-	text-decoration: none;
-}
-
-nav li:hover {
-	color: #fc3592;
-}
-
-nav a:hover {
+a:hover {
 	color: black;
 	font-style: italic;
 }
+
+.blog-container {
+	text-align: justify;
+	margin-right: 5%;
+	font-size: 90%;
+}
+
+.blog-meta {
+	font-size: 70%;
+}
+
+.blog-date {
+	display: block;
+	text-align: right;
+}
+
+::-webkit-scrollbar {
+	display: none;
+}
+
+/*Consider #e5007f in the future for contrast reasons.*/
