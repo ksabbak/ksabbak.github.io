@@ -1,0 +1,6 @@
+  <h2 class="blog-title">{{ page.title }}</h3>
+
+  <div class="blog-post">
+    <p class="blog-meta">{{ page.category }}<span class="date">{{ page.date | date: '%B %d, %Y' }}</span></p>
+    {{ content }}
+  </div>	

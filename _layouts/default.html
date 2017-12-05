@@ -4,14 +4,14 @@
 	<title>K. Sabbak</title>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
-	<link rel="stylesheet" href="/css/style.css" type="text/css">
+	<link rel="stylesheet" href="/css/content.css" type="text/css">
 	<link rel="stylesheet" href="/css/normalize.css" type="text/css">
 </head>
 <body>
-	<header class="home-header">
+	<a href="/" aria-label="Home"><header class="home-header">
 		<h1 class="title">K. Sabbak</h1>
 		<h2 class="subtitle">Developer</h2>
-	</header>
+	</header></a>
 	<nav>
 		<div class="subgrid">
 			<ul class="nav-list">
@@ -20,10 +20,12 @@
 				<li><i class="fa fa-github fa-2x fa-fw" aria-hidden="true"></i> <a href="https://github.com/ksabbak">Github</a></li>
 				<li><i class="fa fa-twitter fa-2x fa-fw" aria-hidden="true"></i> <a href="https://twitter.com/K_Sabbak">Twitter</a></li>
 				<li><i class="fa fa-file-pdf-o fa-2x fa-fw" aria-hidden="true"></i> <a href="/resources/ksabbak_resume.pdf" download>Resume</a></li>
-				<li><i class="fa fa-code fa-2x fa-fw" aria-hidden="true"></i> Portfolio (coming soon)</li>
 			</ul>
 		</div>
 	</nav>
+	<div class="main">
+		{{ content }}
+	</div>
 	<div class="stripe"></div>
 </body>
 </html>
