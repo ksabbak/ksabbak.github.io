@@ -8,7 +8,9 @@ layout: default
     <p class="blog-meta">
     	<span class="blog-date">{{ page.date | date: '%B %d, %Y' }}</span>
     </p>
-    {{ content }}
+    <article>
+      {{ content }}
+    </article>
     <p class="blog-meta">
       <span class="tags">Tags: 
       	{% for tag in page.tags %}

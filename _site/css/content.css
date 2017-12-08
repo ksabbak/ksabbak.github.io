@@ -9,6 +9,13 @@ body {
 	grid-gap: 2%;
 }
 
+blockquote {
+	text-align: justify;
+	font-size: 85%;
+	border-left: 2px solid #fc3592;
+	padding-left: 7px;
+}
+
 .home-header {
 	grid-column: 1;
 	grid-row-start: 1;
@@ -19,15 +26,53 @@ body {
 .title {
 	font-size: 400%;
 	margin: 0;
+	font-style: normal;
 }
 .subtitle {
 	font-size: 200%;
 	margin: 0;
 }
+.post-body {
+	font-size: 90%;
+	line-height: 1.5;
+}
+
+.post-body > p {
+	margin-bottom: 1.25em;
+}
+
+.blog-meta {
+	margin: 0;
+}
+
+hr {
+	border: 0;
+	border-top: 1px dashed darkgray;
+	border-bottom: 1px dashed darkgray;
+	padding: 1px;
+	background-color: white;
+}
+
+hr:after {
+	font-family: serif;
+	color: #f0b6d0;
+	content: 'KS';
+	display: inline-block;
+	position: relative;
+	top: -1em;
+	font-size: 70%;
+	padding: 0 0.25em;
+	margin-left: 49%;
+	background: white;
+}
 
 h2 {
 	text-align: center;
 	font-family: 'Source Code Pro';
+}
+
+.post-title {
+	margin-bottom: 0;
 }
 
 .blog-container {
