@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>K. Sabbak</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="/css/content.css" type="text/css">
+	<link rel="stylesheet" href="/css/normalize.css" type="text/css">
+</head>
+<body>
+	<a href="/" aria-label="Home"><header class="home-header">
+		<h1 class="title">K. Sabbak</h1>
+		<h2 class="subtitle">Developer</h2>
+	</header></a>
+	<nav>
+		<div class="subgrid">
+			<ul class="nav-list">
+				<li><i class="fa fa-pencil-square-o fa-2x fa-fw" aria-hidden="true"></i> <a href="/blog">Blog</a> </li>
+				<li><i class="fa fa-linkedin-square fa-2x fa-fw" aria-hidden="true"></i> <a href="https://www.linkedin.com/in/ksabbak/">LinkedIn</a></li>
+				<li><i class="fa fa-github fa-2x fa-fw" aria-hidden="true"></i> <a href="https://github.com/ksabbak">Github</a></li>
+				<li><i class="fa fa-twitter fa-2x fa-fw" aria-hidden="true"></i> <a href="https://twitter.com/K_Sabbak">Twitter</a></li>
+				<li><i class="fa fa-file-pdf-o fa-2x fa-fw" aria-hidden="true"></i> <a href="/resources/ksabbak_resume.pdf" download>Resume</a></li>
+			</ul>
+		</div>
+	</nav>
+	<div class="main">
+		<div class="blog-container">
+  <h2 class="blog-title">On Mistakes in Programming Books</h2>
+
+  <div class="blog-post">
+    <p class="blog-meta">
+    	<span class="blog-date">December 07, 2017</span>
+    </p>
+    <article>
+      <div class="content post-body">
+
+<p>Today I was reading <a target="_blank" href="https://www.amazon.com/gp/product/0321146530/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=0321146530&linkCode=as2&tag=ksabbak-20&linkId=4e7461290a20f901c3d5d46fe1221182"><cite>Test Driven Development: By Example</cite></a><img src="//ir-na.amazon-adsystem.com/e/ir?t=ksabbak-20&l=am2&o=1&a=0321146530" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />, by Kent Beck and following along with the python example. I had hit a few snags when copying directly from the book, but nothing I wasn't able to fix in about 30 seconds, but then I ran into a huge problem and it took me the better part of an afternoon to sort through.</p>
+
+<p>At first I was very upset about it.</p>
+
+<!--more-->
+
+<p>After all, I was trying to learn TDD from Kent Beck by example and his example was not working. Now instead of spending my time learning TDD, I was spending time debugging something that the book insisted was fine. "Why is it doing that? It shouldn't be doing that!" and, according to the book, I was right, it <em>shouldn't</em> be doing that. But my computer didn't have my book, my computer only had my code, and Python isn't about to be wrong about Python.</p>
+
+<p>A couple hours, some rubber ducking and an epiphany later, I realized what was happening. This explanation will make a lot more sense if you have the book, but I'll try to provide enough context. On page 113, there's the following excerpt:</p>
+
+<blockquote>
+	<p>We can't leave xUnit without visiting <code>TestSuite</code>. The end of our file, where we invoke all of the tests, is looking pretty ratty:</p>
+	<p>
+		<code>print TestCaseTest("testTemplateMethod").run().summary()</code><br />
+		<code>print TestCaseTest("testResult").run().summary()</code><br />
+		<code>print TestCaseTest("testFailedResultFormatting").run().summary()</code><br />
+		<code>print TestCaseTest("testFailedResult").run().summary()</code>
+	</p>
+</blockquote>
+
+<p>Except the end of <em>my</em> file had several lines that were formatted like <code>TestCaseTest("testTemplateMethod").run()</code>, no print, no calling summary - and I hadn't seen anywhere else that would indicate that I should have added those parts. So I panicked and added the missing parts that I knew the book was about to tell me to change. And I started seeing results that I didn't expect. The summary was printing "1 run, 0 failed" <em>every time</em>, even when the assertions inside the test were passing and expecting something like "1 run, 1 failed". I could not figure out what was going on, and that's when I started debugging. Ends up, run was being called twice overall, and instantiating two different TestResult objects, one that had the one that passed the assertion inside the test and one that printed the "1 run, 0 failed" I had been so confused by.</p>
+
+<p>I can't say for sure if this was an actual mistake on the part of the publisher, including the print and summary without the context. After all, if I had a better grasp of what I had been copying, I probably would have been able to figure it out much faster. But it was certainly an oddity. And only by running into this oddity and spending time "solving" it, did I fully understand what I had been faithfully copying. I thought I had understood, but it was clear once I finished working through the unexpected results that I hadn't fully grasped it before. </p>
+
+<p>A quick search hasn't come up with any newer editions of this book, and I'm actually rather glad. After all, the few legitimate mistakes and typos I found (e.g. a way of writing an assertion that would never return false), I was able to overcome with the help of my existing understanding and a bit of help from the error messages. Because I had full understanding of the context, they caused me virtually no problems. And honestly, historically, when I've faithfully followed a book, I've learned a lot, but my learning went deeper and stuck better when I was solving a problem whose answer wasn't on the next page.</p>
+
+<p>Maybe this is just me justifying my typos, excusing a lax editor, or giving myself permission for lazy reading comprehension, but ultimately all three of those things end up leading to a deeper understanding of what I'm working on or something adjacent to it.</p>
+</div>
+
+    </article>
+    <p class="blog-meta">
+      <span class="tags">Tags: 
+      	
+      		<a href="/tag/learning">learning</a> 
+      	
+      </span>
+     </p>
+  </div>
+</div>
+
+	</div>
+	<div class="stripe"></div>
+</body>
+</html>
