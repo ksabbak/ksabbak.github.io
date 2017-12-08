@@ -1,8 +1,8 @@
 ---
 layout: default
 ---
-<h2>{{ page.title }}</h2>
-{% for post in site.posts %}
+<h2>{{ page.tag }}</h2>
+{% for post in page.posts %}
   {% for tag in post.tags %}
     {% if tag == page.tag %}
 
@@ -19,10 +19,11 @@ layout: default
       <p class="blog-meta">
         <span class="tags">Tags: 
         {% for tag in post.tags %}
-          <a href="/tag/{{ tag }}">{{ tag }}</a>
+          <a href="/tag/{{ tag }}.html">{{ tag }}</a>
         {% endfor %}
         </span>
       </p>
+      <hr />
       </div>
 
     {% endif %}
