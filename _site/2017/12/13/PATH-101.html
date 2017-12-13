@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>K. Sabbak</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="/css/content.css" type="text/css">
+	<link rel="stylesheet" href="/css/normalize.css" type="text/css">
+</head>
+<body>
+	<a href="/" aria-label="Home"><header class="home-header">
+		<h1 class="title">K. Sabbak</h1>
+		<h2 class="subtitle">Developer</h2>
+	</header></a>
+	<nav>
+		<div class="subgrid">
+			<ul class="nav-list">
+				<li><i class="fa fa-pencil-square-o fa-2x fa-fw" aria-hidden="true"></i> <a href="/blog">Blog</a> </li>
+				<li><i class="fa fa-linkedin-square fa-2x fa-fw" aria-hidden="true"></i> <a href="https://www.linkedin.com/in/ksabbak/">LinkedIn</a></li>
+				<li><i class="fa fa-github fa-2x fa-fw" aria-hidden="true"></i> <a href="https://github.com/ksabbak">Github</a></li>
+				<li><i class="fa fa-twitter fa-2x fa-fw" aria-hidden="true"></i> <a href="https://twitter.com/K_Sabbak">Twitter</a></li>
+				<li><i class="fa fa-file-pdf-o fa-2x fa-fw" aria-hidden="true"></i> <a href="/resources/ksabbak_resume.pdf" download>Resume</a></li>
+			</ul>
+		</div>
+	</nav>
+	<div class="main">
+		<div class="blog-container">
+  <h2 class="blog-title">PATH 101</h2>
+
+  <div class="blog-post">
+    <p class="blog-meta">
+    	<span class="blog-date">December 13, 2017</span>
+    </p>
+    <article>
+      <div class="content post-body">
+  <p>The other day I was having a <em>very</em> hard time getting <a href="https://github.com/pyenv/pyenv">pyenv</a> to work on my machine. This led to a deep dive into PATH and a shallower dive into the bash profile, and now I want to share what I learned -- mostly so I don't forget it.</p>
+
+  <!--more-->
+
+  <p>First of all, PATH is the environment variable that tells your computer where to start looking for things when a command line command happens without a supplied path (lowercase). It might look something like this <code>/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin</code> with the colons separating the different starts, and it's read from left to right. You can find your PATH by typing <code>echo $PATH</code> on the command line.</p>
+
+  <p>I kind of think of it like if I were looking for something in my home that I had misplaced. If my internal environmental variable PATH were set to <code>/living_room/couch_cushions:/living_room/box_of_junk:/bed_room/under_bed</code> I would start looking every time in the couch cushions, then if I don't find it, I move to the box of junk I throw things into when I know company is coming over, finally if it's still lost, I look under my bed. Those are the only places in my PATH, so if I don't find it, I declare it doesn't exist and throw an error message. My roommate gets very confused by my behavior…</p>
+
+  <p>Now I understood PATH a little better, but pyenv still wasn't working, so I went to learn a bit more about shims. Apparently shims are just these bits of code that intercept a call and change elements just enough. They tend to be implemented to help with forwards or backwards compatibility, but in this case, pyenv is throwing the shim in the path, to say "Hey! Go to this version of Python, not that one", which is very useful and exactly what I wanted and not at all what I was getting. Nothing in my PATH said 'shims', which is what pyenv said it should say, which meant my problem was elsewhere.</p> 
+
+  <p>This is where I turned to my bash profile. It's found in a file called ".bash_profile" and it sets up my terminal so that it does what I want how I want it. So in there, I have aliases for different commands -- it's so much easier to write "be" than "bundle exec" every time. I have my git branch name visible in my prompt so I have extra visual cues not to work on master. And, apparently, I didn't have the right set-up for my pyenv, but this is where it would go.</p>
+
+  <img src="https://pics.me.me/who-would-win-one-misplaced-a-bunch-of-code-semicolon-21445883.png" alt="who would win meme: a bunch of code vs one misplaced semicolon">
+
+  <p>Bonus advice: Use a real text editor. On my Mac, .bash_profile opens in Text Edit, which is fine, but a text editor with features like color coding or quote highlighting would have solved my problem a lot faster. Ends up, it was the difference between "" and “”. </p>
+
+  <h4>Extra reading:</h4>
+  <ul>
+    <li><a href="https://github.com/pyenv/pyenv">pyenv</a></li>
+    <li><a href="http://www.linfo.org/path_env_var.html">LINFO on PATH</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Shim_(computing)">Wikipedia on shims</a></li>
+  </ul>
+
+
+
+</div>
+
+    </article>
+    <p class="blog-meta">
+      <span class="tags">Tags: 
+      	
+      		<a href="/tag/command_line">command_line</a> 
+      	
+      </span>
+     </p>
+  </div>
+  <hr />
+</div>
+
+	</div>
+	<div class="stripe"></div>
+</body>
+</html>
