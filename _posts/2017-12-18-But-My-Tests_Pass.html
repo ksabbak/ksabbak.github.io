@@ -1,0 +1,31 @@
+---
+layout: post
+title: But My Tests Pass
+excerpt_separator: <!--more-->
+tags: 
+- TDD
+- Tests
+- Life Lessons
+---
+<div class="content post-body">
+<p>If you had asked me like three days, I would have been like "I don't know why I was so worried about TDD, it's <em>great</em> nothing goes wrong, it goes smoothly and logically!" and if you ask me right now, I'll swear I saw this coming.</p>
+
+<p>Saw what coming? Well, all my tests pass. . .</p>
+
+<!--more-->
+<p>I was given the task of building a Tic-Tac-Toe game with TDD, and I was totally game. Testing is one of the things I feel like I need the most practice in, and I'd never done anything fully TDD before (fun fact: I still haven't). </p>
+
+<p>At some point, I was going through my <span class="red">red</span>/<span class="green">green</span>/refactor pattern and everything was going well enough except I kind of went a bit overboard and one of the refactors I ended up with was more of a dumpsterfire than an actual function. But all my tests were passing, so it may not have been a great refactor, but I could move forward assured that my dumpsterfire was contained in its dumpster.</p>
+
+<img src=https://i.imgur.com/oOXDJDU.jpg alt="A fire inside of a dumpster" />
+
+<p>The way I understand TDD is you don't write functionality until you write the tests for it, so yes, my refactored Tic-Tac-Toe code was only going to work for a traditional 3x3 board, but broadening its functionality without writing the tests first wasn't part of the plan, and the plan didn't technically include expanding the board yet, so I left it alone.</p>
+
+<p>Later, however, when I was trying to write a different piece of code that used those functions, things were going horribly wrong. It wasn't until I started breaking out pieces of it, did I realize that while yes, my tests did pass, I didn't cover every edge case. Heck, I don't think I'm supposed to cover every edge case with TDD testing because it slows down the <span class="red">red</span>/<span class="green">green</span>/refactor cycle. So, while it was true that my function returned true every time it should have returned true, and returned false every time it was tested to return false, it also returned true some of the times it was supposed to return false. My dumpster fire was not nearly as contained as I thought</p>
+
+<a href="http://gunshowcomic.com/648" aria-label="to original this is fine dog comic"><img src=https://i.imgur.com/c4jt321.png alt="the comic of the dog sitting in a room that is obviously on fire - the dog says 'this is fine'"></a>
+
+<p>I guess the conclusion is that TDD <em>is</em> great, but it's not magic. It's not going to solve every problem or prevent each and every one from ever happening. I guess that's okay. In the mean time, <a href="https://youtu.be/L_jWHffIx5E?t=36s">my world's on fire, how 'bout yours? That's the way I like it because I never get bored.</a> I'm hilarious.</p>
+<p> (ﾉ◕ヮ◕)ﾉ*:・ﾟ✧ </p>
+
+</div> 
