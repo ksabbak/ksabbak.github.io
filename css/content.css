@@ -99,7 +99,8 @@ nav {
 nav a,
 nav li:hover,
 a,
-.blog-title {
+.blog-title,
+code {
 	color: #fc3592;
 	text-decoration: none;
 }

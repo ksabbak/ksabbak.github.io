@@ -1,0 +1,43 @@
+---
+layout: post
+title: Truthy and Falsy
+excerpt_separator: <!--more-->
+tags: 
+- Booleans
+- Fundamentals
+---
+<div class="content post-body">
+<p>I always thought that the threshold for me to feel like a "real programmer" would be when I was able to use ternary statements confidently, and while that certainly helped, I feel like the real turning point for me was understanding truthy and falsy.</p>
+
+<!--more-->
+<p>True and False are simple enough concepts. And in programming they tend to be classified as booleans and they tend to look like <code>true</code> or <code>False</code>. Statements like <code>1 == 1</code> evaluate to True (the boolean), and statements like <code>100 < 2</code> evaluate to False (the boolean). And in some languages, that's all there is to know.</p>
+
+<p>But not all languages. Some languages have this more nebulous idea of "truthy" and "falsy". In these languages, one isn't limited to strictly booleans and statements that evaluate to booleans. In these languages, you can use . . . kind of whatever.</p>
+
+<p>In languages that use truthy and falsy, you can put objects or types that aren't booleans in a place where you'd normally expect a boolean, like control flow statements. </p>
+
+<p>For example, if you were to use the following bit of code in Swift, XCode would start crying.</p>
+
+<pre><code>if [] {
+    print("Hello!")
+}</code></pre>
+
+<p>That's because Swift is one of those languages that <em>doesn't</em> use truthy and falsy and it wants a bool or something that evaluates to a bool. (Bool is Swift's name for boolean.)</p>
+
+<p>On the other hand, languages that do use truthy and falsy, like Ruby, are perfectly happy with the following: </p>
+
+<pre><code>if [] 
+    puts "Hello!"
+end</code></pre>
+
+<p>Everything works out fine in that example and "Hello!" will be printed to the console. But what happens if we look at Python, another language that accepts truthy and falsy:</p>
+
+<pre><code>if []: 
+    print("Hello!")
+</code></pre>
+
+<p>Python evaluates the code just fine, but unlike in the Ruby example where an empty array is truthy, an empty list in Python is falsy, and "Hello!" will never print.</p>
+
+<p>In languages that use truty and falsy, knowing the list of what evaluates to falsy (typically shorter than the list that evaluates to truthy), is very important since debugging can be very hard if you get it wrong. That being said, a good grasp of truthy and falsy in the language you're writing in can make your code a lot more expressive and readable. And that expressiveness and readability is exactly what made me feel like I was finally really programming for real. </p>
+
+</div> 

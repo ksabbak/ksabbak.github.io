@@ -34,7 +34,8 @@ h2,
 .main a,
 nav li:hover,
 .title,
-nav a {
+nav a,
+code {
 	color: #fc3592;
 }
 
