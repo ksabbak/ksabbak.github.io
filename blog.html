@@ -1,11 +1,20 @@
----
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="refresh" content="0; url=/blog/index.html" />
+  <title>blog</title>
+</head>
+<body>
+
+</body>
+</html>
+<!-- ---
 layout: default
 ---
-
 <h2>This is a blog</h2>
 
 <div class="blog-container">
-   {% for post in site.posts %}
+   {% for post in paginator.posts %}
       <div class="blog-post">
         <h3><a href="{{ post.url }}" class="post-title">{{ post.title }}</a></h3>
         <p class="blog-meta">
@@ -26,4 +35,15 @@ layout: default
        </p>
        <hr />
     {% endfor %}
- </div>
+    <div class="pagination">
+    {% if paginator.previous_page %}
+      <a href="{{ paginator.previous_page_path }}" class="previous">&laquo; Previous</a>
+    {% endif %}
+
+    <span class="page_number">Page: {{ paginator.page }} of {{ paginator.total_pages }}</span>
+
+    {% if paginator.next_page %}
+      <a href="{{ paginator.next_page_path }}" class="next">Next &raquo;</a>
+    {% endif %}
+  </div>
+ </div> -->
