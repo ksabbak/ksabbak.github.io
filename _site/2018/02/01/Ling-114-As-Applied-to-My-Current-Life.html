@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>K. Sabbak</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="/css/content.css" type="text/css">
+	<link rel="stylesheet" href="/css/normalize.css" type="text/css">
+</head>
+<body>
+	<a href="/" aria-label="Home"><header class="home-header">
+		<h1 class="title">K. Sabbak</h1>
+		<h2 class="subtitle">Developer</h2>
+	</header></a>
+	<nav>
+		<div class="subgrid">
+			<ul class="nav-list">
+				<li><i class="fa fa-pencil-square-o fa-2x fa-fw" aria-hidden="true"></i> <a href="/blog/">Blog</a> </li>
+				<li><i class="fa fa-linkedin-square fa-2x fa-fw" aria-hidden="true"></i> <a href="https://www.linkedin.com/in/ksabbak/">LinkedIn</a></li>
+				<li><i class="fa fa-github fa-2x fa-fw" aria-hidden="true"></i> <a href="https://github.com/ksabbak">Github</a></li>
+				<li><i class="fa fa-twitter fa-2x fa-fw" aria-hidden="true"></i> <a href="https://twitter.com/K_Sabbak">Twitter</a></li>
+				<li><i class="fa fa-file-pdf-o fa-2x fa-fw" aria-hidden="true"></i> <a href="/resources/ksabbak_resume.pdf" download>Resume</a></li>
+			</ul>
+		</div>
+	</nav>
+	<div class="main">
+		<div class="blog-container">
+  <h2 class="blog-title">LING114 as Applied to My Current Life</h2>
+
+  <div class="blog-post">
+    <p class="blog-meta">
+    	<span class="blog-date">February 01, 2018</span>
+    </p>
+    <article>
+      <div class="content post-body">
+<p>Here's a fun fact about me: I have a BA in Linguistics. What did I think I was going to do with that? Well, probably more school, but at some point I realized that was the wrong path for me. That being said, I really appreciated what I learned as a linguistics student. </p>
+
+<p>The very first linguistics class I took was probably LING114 taught by Prof. Glick. The thing about Prof. Glick is he was the head of SUNY Binghamton's Linguistics department, and I took a lot of his classes. He had three principles about language that given how often I took his classes, I will likely never forget. The goal here is to try to apply them to code - after all, we may be coding in constructed languages, but they're functionally very similar to natural languages in many ways.</p>
+
+<!--more-->
+
+<p><strong>Reality Is Infinite</strong> - This is less a fact about language than it is about existence, but it's still a solid starting point. Or perhaps it's a nebulous starting point, after all, it's very hard to start from literally all things everywhere. What we can write with code is limited right now by time, computing power, hardware abilities, etc. but that doesn't mean that the possibilities aren't infinite. After all, the set of all numbers is infinite - but so is the set of numbers between 0 and 1. </p>
+
+<p>This brings us to the second principle - <strong>Language Is Necessarily Reductive</strong>. When applied to language this means that no word we use is perfect. Pick out any word in any language and try to figure out what it encodes. For example, if we were talk about a knife - the word lets us know that there's an object that has a handle and a "blade" or some part that isn't the handle that has a sharp(ish) edge that can cut things, and is probably rather flat and relatively small. But think of all the things that we don't know from the word knife - the color, material, age, specific uses (dinner knife? camping knife? butter knife?), owner, location, quality, temperature, and so much more. </p>
+
+<p>The reductive quality of language can be applied to code in a literal way - naming. Good code has names that are expressive and that shares what the code does. Because we're already working in a reduced space, we don't have quite as much reduction to do, so sometimes we're allowed to write function names that look something like <a href="https://developer.apple.com/documentation/uikit/uitableview/1614891-dequeuereusablecell"><code>dequeueReusableCell(withIdentifier:)</code></a>. (I mean don't do that one, Apple already did it for you.) but sometimes we're stuck with things like <code>shift()</code>. Sure, it could have been named something like <code>remove_first_element_of_array()</code> or maybe <code>remove_first_element_of_array_and_return_it()</code>, which probably implies that the array is permanently altered, but maybe it doesn't so maybe we could go with <code>permanently_remove_first_element_of_array_and_return_it</code> and maybe we should say "zeroith" instead of "first" just to be absolutely clear. Now it's not reductive at all! Except what about the optional arguments, that's not a feature built into a lot of languages like it is in the Swift example above, and maybe we should be clear about the memory allocation here... And that's when we see that no, no matter how specific we get and how long the function or variable name gets, we're leaving out <em>something</em>. </p>
+
+<p>This isn't to say we should give up and write all our functions names with single, sometimes flippant, word choices. But given the constraints of the language and the community conventions around the language and the code-base, in combination with accepted practices, it shouldn't be downright impossible to name things clearly.</p>
+
+<p>The final principle of language that I learned is that <strong>All Language Is Defined in Opposition</strong>. Basically without something a word can't be, it's harder to figure out what it is. "Yes" would be meaningless without a "no", but also "pretty" is more narrowly defined because "beautiful" exists to limit it, and if if "hideous" fell out of use, "beautiful" likely would too, leaving "pretty" and "ugly" to expand those gaps. </p>
+
+<p>So what the heck does this mean in terms of programming? I'll admit it's not nearly so clear. To me, it means that having pairs of functions like <code>shift()</code> and <code>unshift()</code> help further define what they do. It's easier to grasp that you cannot use <code>shift()</code> to add something when you know <code>unshift()</code> exists.</p>
+
+<p>Ultimately all of these things have been floating in my mind the past week or so because I've been working harder to apply the <a href="https://en.wikipedia.org/wiki/Single_responsibility_principle">Single Responsibility Principle</a> to what I'm writing. At first, I had been frustrated because coming from a linguistics background, I kept approaching responsibility with the idea that since all language is reductive, there's no reason not to throw this tangentially related property in there. Our language so rarely encodes things like color directly into the noun but everything has a color, why can't I follow the same idea in my code? But at some point the fact that code does language backwards clicked for me.</p>
+
+<p>Wait, backwards? Yeah. Backwards. Get this - in natural language the things came first. We saw rocks and then decided to name them. In programming we have the language, but we build the things. If you don't want your function to do a thing, don't build it in. If you don't want to adhere too strongly to a real-world equivalent of an object, especially if some of those properties are more implied than explicit, just don't. </p>
+
+<p>It's a freeing revelation and one that I'm still struggling to apply.</p>
+</div>
+
+    </article>
+    <p class="blog-meta">
+      <span class="tags">Tags: 
+      	
+      		<a href="/tag/linguistics">linguistics</a> 
+      	
+      		<a href="/tag/general">general</a> 
+      	
+      </span>
+     </p>
+  </div>
+  <hr />
+</div>
+
+	</div>
+	<div class="stripe"></div>
+</body>
+</html>
