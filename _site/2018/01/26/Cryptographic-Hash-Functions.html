@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>K. Sabbak</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="/css/content.css" type="text/css">
+	<link rel="stylesheet" href="/css/normalize.css" type="text/css">
+</head>
+<body>
+	<a href="/" aria-label="Home"><header class="home-header">
+		<h1 class="title">K. Sabbak</h1>
+		<h2 class="subtitle">Developer</h2>
+	</header></a>
+	<nav>
+		<div class="subgrid">
+			<ul class="nav-list">
+				<li><i class="fa fa-pencil-square-o fa-2x fa-fw" aria-hidden="true"></i> <a href="/blog/">Blog</a> </li>
+				<li><i class="fa fa-linkedin-square fa-2x fa-fw" aria-hidden="true"></i> <a href="https://www.linkedin.com/in/ksabbak/">LinkedIn</a></li>
+				<li><i class="fa fa-github fa-2x fa-fw" aria-hidden="true"></i> <a href="https://github.com/ksabbak">Github</a></li>
+				<li><i class="fa fa-twitter fa-2x fa-fw" aria-hidden="true"></i> <a href="https://twitter.com/K_Sabbak">Twitter</a></li>
+				<li><i class="fa fa-file-pdf-o fa-2x fa-fw" aria-hidden="true"></i> <a href="/resources/ksabbak_resume.pdf" download>Resume</a></li>
+			</ul>
+		</div>
+	</nav>
+	<div class="main">
+		<div class="blog-container">
+  <h2 class="blog-title">Cryptographic Hash Functions</h2>
+
+  <div class="blog-post">
+    <p class="blog-meta">
+    	<span class="blog-date">January 26, 2018</span>
+    </p>
+    <article>
+      <div class="content post-body">
+
+<p>So you're at a party and someone turns to you and says "You do things with code, right? What's the blockchain?" and in you're head you're all "Oh my god, I do work with code, what <em>is</em> the blockchain???" and aloud you recreate this <a href="https://www.youtube.com/watch?v=4APcgsRdW6w">clickhole video on bitcoin</a>. Everyone nods as if they understand you, you nod as if you understand you and then you go home and fall down a rabbit hole where you end up learning a lot about cryptographic hash functions, some nonsense about the blockchain and you can finally rest assured that the next time you're at a party and get asked, you can safely tangent about cryptographic hash functions, which sounds smart and cool, ergo making you sound smart and cool and the world is right again. </p>
+
+<p>Or you can just read this blog post. It's not about the blockchain at all.</p>
+
+<!--more-->
+
+<p>Okay, so a key part of cryptographic hash functions is the hash function part. Hash functions are functions that take in legit anything of any size for their input and output something of fixed size for their output. So the output will always be the same size no matter what you throw in it. You can use a hash function for all sorts of nifty things like looking things up quickly or finding duplicate data. You can use hash functions for things like authentication, message signatures and checking file integrity and that's where cryptographic hash functions come in.</p>
+
+<p>Before we dive in, let's do a quick vocab lesson: the <strong>message</strong> is the input, the <strong>digest</strong> is the output.</p>
+
+<p>So, if you're obnoxious like me, you could point out that a function that returns the same digest, say "foo bar" every single time, regardless of message is technically returning something of fixed length regardless of message size, and like fine, you're not wrong. BUT in addition to that rule, cryptographic hash functions have a few other criteria they have to meet in order to count, and that's what makes them useful.</p>
+
+<p>The first thing is they have to be fast. No one is going to use them if they're not fast and we want people to use them. How fast is fast? It took my laptop only a few seconds to send a 1.47GB file through the SHA1 function and get back a digest.</p>
+
+<p>Secondly they have to appear random. They can't actually <em>be</em> random because then they're useless, but they have to seem as if they are. That means that if I gave you the SHA1 digest for "Hello world!" and the SHA1 digest for the HD Battlestar Galactica season 4 episode "He That Believeth in Me" in m4v format, you wouldn't be able to tell me which one is which unless you run one of those things through the SHA1 function yourself. There's no hint of the contents, file type, anything really of the message from the digest.</p>
+
+<p>Which brings us to the next requirement - they're "one way". The metaphor most often used here is the meat grinder. You put meat through a grinder and you can never ungrind that meat. You put a message through a cryptographic hash function and there's no turning back and figuring out what that message is. This is different from encryption, which requires you can reverse the message, given the right key. The metaphor for that one is a locked box, you can always remove the thing from the locked box if you have the key.</p>
+
+<p>Finally there has to be a very small chance of "collision". This means that it's very unlikely that any two messages will give you the same digest and that it's virtually impossible to MAKE two messages give you the same digest. This is kind of a weird requirement since even if your set of possible messages is smaller than your set of possible digests, there's likely going to be some collision thanks to the <a href="https://en.wikipedia.org/wiki/Birthday_problem">birthday paradox</a>. Given that in some cases the set of possible messages is literally infinite, and the set of possible digests is definitely finite, there will inevitably be some collisions, but the point in these is that they're impossible to manufacture yourself and just not that common. If you write a cryptographic hash function and you get a collision every hundred or so digests, you messed up. </p>
+
+<p>Here are some examples of some digests that have been run through SHA1, a cryptographic hash function that's old and compromised, so please don't use SHA1 for anything important. Its digest is always 160 bits. "Hello world!" is d3486ae9136e7856bc42212385ea797094475802
+And the SHA1 digest for the HD Battlestar Galactica season 4 episode "He That Believeth in Me" in m4v format is 3c98d0533dcdc7b2bb87da705129e843929d4e7a.</p>
+
+<p>As you can see, the 160 bit digest is pretty small. A lot smaller than a 1.47GB file - which means that if you wanted to verify that the 1.47GB file I am sending you is in fact the 1.47GB file I say it is, we could compare hashes. This is a bit contrived because I could also just give you the hash of my compromised 1.47GB program, but a third party confirmation or a hash of a previous copy of the desired file would make that a lot harder to fake. </p>
+
+<p>It sounds like a great idea to store passwords using digests based on these functions, but it is not a great idea. Going back to the need for them to be fast, a hacker could just throw password after password through the same function used to store the password until they start getting hits - and the more people you have, the faster those hits will come, especially if there's no block on people using passwords like "password123". That's where algorithms like bcrypt and PBKDF2 come in. They slow down the hashing by running it over and over again and introduce something called a "salt". The salt gets appended to the password so that even if your password is "password123" it would be hashed as "password123b2bb87da70512" every time. While the salt is stored clear as day with the password, it still slows down hackers.</p>
+
+<p>Now go out and enjoy those parties.</p>
+</div>
+
+    </article>
+    <p class="blog-meta">
+      <span class="tags">Tags: 
+      	
+      		<a href="/tag/security">security</a> 
+      	
+      		<a href="/tag/cryptography">cryptography</a> 
+      	
+      		<a href="/tag/hash-functions">hash-functions</a> 
+      	
+      </span>
+     </p>
+  </div>
+  <hr />
+</div>
+
+	</div>
+	<div class="stripe"></div>
+</body>
+</html>
