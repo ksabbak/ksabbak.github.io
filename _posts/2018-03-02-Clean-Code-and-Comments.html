@@ -1,0 +1,28 @@
+---
+layout: post
+title: Clean Code and Comments
+excerpt_separator: <!--more-->
+tags:
+- comments
+- language
+- clean-code
+---
+
+<div class="content post-body">
+
+<p>I've always heard of the philosophy that comments aren't a great idea in code. I knew the reasons, but I didn't want to believe. Something about comments just really appeal to me. They're like a little secret message -- and who doesn't love secret messages? But in the face of Robert Martin's arguments from <a target="_blank" href="https://www.amazon.com/gp/product/0132350882/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=0132350882&linkCode=as2&tag=ksabbak-20&linkId=9566faf442236e3af6d7a14d65de55c1"><i>Clean Code: A Handbook of Agile Software Craftsmanship</i></a>, I think I'm finally ready to cave. </p>
+
+<p>The argument I have always heard for no comments is that code has to get updated but comments don't, which means they often are wrong. Of course, my brain immediately responds with "Well, not <i>me</i>. <i>I</i> will always update the comments". I know this is objectively false. So I grumble about it a little and try to avoid using them a bit more than I had. But not entirely. Because secret messages!</p>
+
+<!--more-->
+
+<p>It wasn't until I Martin's segment called "mumbling" that I realized what my main downfall in comments inevitably is. Given an example, Martin follows it with "What does that comment [...] mean? Clearly it meant something to the author, but the meaning does not come through all that well." Oh.</p>
+
+<p>The example is irrelevant. It made me realize just how often I have had to ask people in regular conversation "Wait, what do you mean by that?" and just how often people have asked me the same question. One of the things about human language is that it's inexact. The thing about computer languages is that they're exact. Ambiguity is either an example of variables, functions, etc. being poorly named (something else <i>Clean Code</i> covers) - an example of human language failing, or just broken code.</p>
+
+<p>If I can't explain myself using the exact language that I am writing in, why in the world would I think that I can do any better with English in its inexactness? Furthermore, I mostly only speak English, but I have in the past worked on a project with a native Spanish speaker and a native Kyrgys speaker. The native Spanish speaker once pushed some code with comments in Spanish -- which I was able to understand with some struggle but our other group member was at a total loss. So even in the event where I am 100% sure that my plain-English explanation will be somehow clearer than the code I wrote, I'm still making the assumption that every reader of my code will have the same level of understanding of English.</p>
+
+<p>One could argue that my naming doesn't make things any clearer if that's also in English, but that's probably just an argument for making sure I'm not relying on minute language nuances (like I have previously). I can't just throw my hands in the air and give up and name everything after single letters because that helps zero people, including future me.</p>
+
+<p>Anyway, that was my aha moment about comments. If you have something to say about my opinion on comments, I have taken it to the extreme and prevented having any comments on my blog too. (That's a joke. I may add them in one day.)</p>
+</div>
