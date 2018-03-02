@@ -1,0 +1,32 @@
+---
+layout: post
+title: Ruby Heredocs
+excerpt_separator: <!--more-->
+tags:
+- ruby
+- heredocs
+---
+
+<div class="content post-body">
+
+I’ve had a minute to spend more time in Ruby this week and I’m always floored by the wild stuff that this language lets me do. Here’s some of the fancy stuff I learned about HEREDOCs.
+
+<!--more-->
+
+<p>Ever find yourself writing something like <code><<-HEREDOC.gsub(/^ {4}/, '')</code>? Well, apparently after Ruby 2.3, all you have to do is write <code><<~HEREDOC</code> (not the ~ instead of -) and Ruby will automatically remove the whitespace for you. Specifically it’ll say hey, which of these lines has the least amount of preceding whitespace and then take that amount of whitespace away from all the lines, so further indents are still preserved. It’s <i>amazing</i>.</p>
+
+<p>What about writing something that has a bunch of things you need to escape? Instead of writing all the escape characters yourself, just use <code><<-'HEREDOC'</code> and Ruby will add in those escape chars for you! It’ll also stop interpolation, so you know, use that one with caution.</p>
+
+<p>How about when you find it annoying to declare and then use your HEREDOC as an argument? Not sure if I like the look of this one but you can also:</p>
+
+<blockquote><code>"She would never say where she came from".concat(<<-LYRICS)<br/>
+Yesterday don't matter if it's gone<br/>
+While the sun is bright<br/>
+Or in the darkest night<br/>
+No one knows, she comes and goes<br/>
+LYRICS<br/>
+</code></blockquote>
+
+<p>It works. Everything works. It’s amazing. I’m sure there are even more things you can do, but this is what I picked up this week and I wanted to share.</p>
+
+</div>
