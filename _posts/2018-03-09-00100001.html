@@ -1,0 +1,63 @@
+---
+layout: post
+title: "00100001"
+excerpt_separator: <!--more-->
+tags:
+- binary
+- fundamentals
+- old-school
+---
+<div class="content post-body">
+
+<p>I've slowly been making my way through <a target="_blank" href="https://www.amazon.com/gp/product/1555976859/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1555976859&linkCode=as2&tag=ksabbak-20&linkId=3003d11c9a25a7161386bcd305ef6631">Geek Sublime: The Beauty of Code, the Code of Beauty</a> in my free time and one of the first thing the book tackles is how people work in the tech industry and don't know how computers work. As someone who entered tech with a bootcamp background, this rings true to me. Though we spent a good deal of time immersed in learning how to code, and managed to get some of the basics of web protocol, we certainly didn't touch on logic gates or binary. To be honest, I can't tell if Chandra believes that people who work in tech <em>need</em> to understand how computers work on a fundamental scale, but he does help demystify some of it.</p>
+
+<p>I'm kind of lucky, due mostly to an interest in the subject and the vague idea that I might get a CS minor (I never did), I managed to take a few classes in college that set me up with some of this basic knowledge. I also held onto the notebook that was my trusty companion through these classes.</p>
+
+<!--more-->
+
+<figure><img src="https://i.imgur.com/9BLgCnEl.jpg" title="source: imgur.com" />
+<figcaption>I mean how could I get rid of something this cute? </figcaption></figure>
+
+<p>I decided to revisit the knowledge and see if I could share it here and I learned one very important thing: I took terrible notes in college. I know I learned how to convert decimal numbers (base 10, the number system we humans use day-to-day) to binary numbers (the 0s and 1s). I know I was tested on it. You'd think I'd've written down the formula. You would be wrong.</p>
+
+<p>Luckily Chandra's book helped jog my memory. Here are the steps:</p>
+
+<ol>
+  <li>Find the largest power of 2 (2<sup>n</sup>) that is less than or equal to the decimal number you're converting</li>
+  <li>Write out that 2<sup>n</sup> in a box, going from left to right (like one normally writes) make boxes and fill them with the next smallest power of 2 until you get to 2<sup>0</sup> (aka "1")</li>
+  <li>Below the box with the greatest 2<sup>n</sup>, put a 1, then take the decimal representation of 2<sup>n</sup> and subtract it from your original decimal number </li>
+  <li>Take the difference of the step above repeat step 3 until you're left with 0.</li>
+  <li>Fill in the rest of the boxes with 0s.</li>
+  <li>You're done! </li>
+</ol>
+
+<p>Here are the steps with pictures to help illustrate my point. The decimal number I chose is 713.</p>
+
+<figure><img src="https://i.imgur.com/fwQHhRUl.png"><figcaption>
+First we find the largest 2<sup>n</sup> that is still smaller (or equal to, but in this case smaller) than 713 - 2<sup>9</sup> or 512</figcaption></figure>
+
+<figure><img src="https://i.imgur.com/GHl5CuDl.png"><figcaption>
+Then we create our boxes and fill in the first one.</figcaption></figure>
+
+<figure><img src="https://i.imgur.com/9c5rrhXl.png"><figcaption>
+We take 201 (the difference of 713 and 512) and subtract 128 (2<sup>7</sup>) from it, since 2<sup>8</sup> (256) is too large. And fill in the 128 (2<sup>7</sup>) box.</figcaption></figure>
+
+<figure><img src="https://i.imgur.com/QlKOsu0l.png"><figcaption>
+We repeat this step with 73 (the difference of 201 and 128), this time subtracting 64 (2<sup>6</sup>) from it and filling in that box.</figcaption></figure>
+
+<figure><img src="https://i.imgur.com/acVww0Dl.png"><figcaption>
+We repeat again, this time with 9 and 2<sup>3</sup></figcaption></figure>
+
+<figure><img src="https://i.imgur.com/El0N7yKl.png"><figcaption>
+And finally we repeat one last time with 1 and 2<sup>0</sup></figcaption></figure>
+
+<figure><img src="https://i.imgur.com/gs43PZCl.png"><figcaption>
+Then we fill in the zeros on the boxes we skipped. This gives us 1011001001</figcaption></figure>
+
+<figure><img src="https://i.imgur.com/1YoII3Vl.png"><figcaption>
+And for fun, we check it against Google's calculator. It also gave us 1011001001. We did it!</figcaption></figure>
+
+<p>You may notice that Google has "0b" in front of its answer. This is so we know that it's the binary representation of 713 and not the decimal number 1,011,001,001. This isn't the only way to denote something is a binary number but it is pretty common.</p>
+
+<p>You may have noticed something was missing: Negative integers. In the interest of not turning this blog post into something way too long to handle, I'll leave you with the same cryptic nonsense past me wrote in my notes: "Also, 2's compliment[sic] is Awesome."</p>
+</div>
