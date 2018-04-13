@@ -1,0 +1,94 @@
+---
+layout: post
+title: Clojure Threading Macros
+excerpt_separator: <!--more-->
+tags:
+- clojure
+---
+<div class="content post-body">
+
+<p>Clojure is weird. I like it a lot, but it’s weird. Or, at least it <em>looks</em> weird, like <em>really</em> weird. I come from a background that's not nearly as LISP-y as Clojure. So the syntax really threw me. And it will continue to throw me. But there are a few things that at least help me read what I'm writing and for that, I will be forever grateful.</p>
+
+<p>Let's talk about threading macros!</p>
+
+<!--more-->
+
+<p>So, when left unchecked, I can easily write functions in Clojure that look a bit like this:</p>
+
+<pre><code class="language-clojure">
+(defn stringify-options [options]
+  (dorun (map println (map-indexed #(str (+ %1 1) ". " %2) options))))</code></pre>
+
+<p>This fun little function takes in a vector and prints out a human-readable list. So if you pass it in something like <code>["Learn to program" "Write in Clojure" "???" "Profit!"]</code> it'll spit out something that looks like this:</p>
+
+<ol>
+    <li>Learn to program</li>
+    <li>Write in Clojure</li>
+    <li>???</li>
+    <li>Profit!</li>
+  </ol>
+
+<p>Numbers and all. Which is pretty nifty if you're trying to write some sort of todo list app* for the command line. Now, you may not have noticed the 68char second line while you were being wowed by my Clojure genius, but there's a pretty good chance you did <em>not</em> miss that line because, well, it goes on forever. Not only does it take up an obnoxious amount of horizontal screen real estate, but it's just not a party to read.</p>
+
+<p>The solution is the <a href="https://clojure.org/guides/threading_macros">threading macro</a>. The long train-wreck above can be turned into:</p>
+
+<pre><code class="language-clojure">
+ (defn stringify-options [options]
+  (->> options
+    (map-indexed #(str (+ %1 1) ". " %2))
+    (map println)
+    (dorun)))
+  </code></pre>
+
+    <p>  The longest line of that code is only 37 characters long. That's not even as many as four tens, and that's wonderful!</p>
+
+    <p>  <img src="https://i.imgur.com/tVFl6.jpg" alt="When no one was looking Lex Luthor took 40 cakes. That's as many as 4 tens. And that's terrible."></p>
+
+    <p>  So what's going on there? Well, first we start with an opening parenthesis because hey, it's still Clojure. Then we have this funny looking arrow <code>->></code>. That's what tells us (and the computer) we're going to change up the syntax. It's the "thread last macro". This means it actually assesses things in a way we, as English speakers, are used to reading. First it assesses the top line, then it takes the result of that and makes it the argument of the next line down, assesses that line and repeats until you get to the end.</p>
+
+    <p>  Now if there's a thread last macro, you can probably guess there's a thread first macro, AND YOU'D BE RIGHT! Wow!</p>
+
+    <p>  Let's start us off with a function that could use some clean-up</p>
+
+ <pre><code class="language-clojure">
+(defn assess-winner [board]
+  (first (some #(when (apply = %) %) (potential-wins board))))
+</code></pre>
+
+   <p>Now, this function basically helps determine who the winner of a tictactoe game is. And what it lacks in instant clarity now, it'll make up for with bad ideas in a second. So, let's apply the thread-first macro. As one can guess, the macro places the result of the first line into the FIRST argument spot on the next line. A little harder to immediately grasp, so I'm borrowing from the official Clojure explanation on this one and using commas where the previous line gets placed. Also it looks like this <code>-></code>, which is just one <code>></code> short of a thread-last macro.</p>
+
+ <pre><code class="language-clojure">
+ (defn assess-winner [board]
+   (-> #(when (apply = %) %)
+     (some ,,, (potential-wins board))
+     (first ,,,)))</code></pre>
+
+<p>Handy! But why didn't I split up that anonymous function? Well, you can't directly, but you can if you nest threading macros.</p>
+
+<pre><code class="language-clojure">
+(defn assess-winner [board]
+  (-> #(-> =
+        (apply %)
+        (when  %))
+    (some (potential-wins board))
+    (first)))</code></pre>
+
+    <p>...</p>
+
+    <p>As a Clojure newbie, I'm going to say that when it comes to readability, nesting threading macros seems like a bad idea. Also, thread-first macros are harder to read for me than thread-last macros, probably because mentally adding the argument to the end is an easier task than inserting it in the middle of something, which is what you have to do with thread first.</p>
+
+      <p>But what if our code isn't so conveniently laid out that it makes sense to use first or last, what if it's first sometimes, last other times and then just??? That's fine too. Let's return to our first example, the one that prints nice, human readable lists from a vector. Let's say you wanted to pull out that anonymous function first because it just seems cleaner to put it on its own line.</p>
+
+<pre><code class="language-clojure">
+(defn stringify-options [options]
+  (as-> #(str (+ %1 1) ". " %2) arg
+    (map-indexed arg options)
+    (map println arg)
+    (dorun arg)))
+</code></pre>
+
+    <p>Here we're using <code>as-></code>, this starts out like thread first or thread last macros, but now we also give it a name (in this case 'arg') and from that point on, wherever we put arg is where the macro will dump the assessment of the line before. This is especially handy because sometimes you want to use a few functions that don't order their arguments in convenient ways for you, and as a bonus, there's an obvious visual guide for how to read the function.</p>
+
+    <p>And those are the basics of Clojure's threading macros!</p>
+
+  <p>*Believe it or not, I'm not actually writing a todo-list app.</p>
