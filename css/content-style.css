@@ -1,3 +1,5 @@
+@import url(monokai.css);
+
 body {
 	padding: 3%;
 	padding-top: 2%;
@@ -34,8 +36,7 @@ h2,
 .main a,
 nav li:hover,
 .title,
-nav a,
-code {
+nav a {
 	color: #fc3592;
 }
 

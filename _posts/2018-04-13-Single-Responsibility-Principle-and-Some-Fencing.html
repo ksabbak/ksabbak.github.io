@@ -1,0 +1,120 @@
+---
+layout: post
+title: Single Responsibility Principle and Some Fencing
+excerpt_separator: <!--more-->
+tags:
+- single-responsibility-principle
+- high-level-design
+- fencing
+- fundamentals
+---
+<div class="content post-body">
+
+
+<p>The Single Responsibility Principle (SRP) is the S in SOLID programming and it is exactly what it says on the tin. Every class should have one responsibility.</p>
+
+<!--more-->
+
+<p>In <cite>Clean Code</cite>, Robert Martin says "The Single Responsibility Principle (SRP) states that a class or module should have one, and only one <em>reason to change</em>." Just in case you're as dense as I am (you're probably not), that means that the code itself has one reason to change, not like, an instance of the class will change one of its attributes over the life of your program. That one took me a minute to figure out.</p>
+
+<p>In <cite>Practical Object Oriented Design</cite>, Sandi Metz gives us two ways to figure out if something we're writing is adhering to the SRP.</p>
+
+<blockquote>One way is to pretend that it’s sentient and to interrogate it. If you rephrase every one of its methods as a question, asking the question ought to make sense.</blockquote>
+
+and
+
+<blockquote>Another way to hone in on what a class is actually doing is to attempt to describe it in one sentence. Remember that a class should do the smallest possible useful thing. That thing ought to be simple to describe. If the simplest description you can devise uses the word “and,” the class likely has more than one responsibility. If it uses the word “or,” then the class has more than one responsibility and they aren’t even very related.</blockquote>
+
+
+<p>Well, that seems pretty straight-forward. I think we've covered everything, so I'll just talk about fencing instead -- just kidding of course, we'll use fencing to build an example of how to apply the SRP. Let's say you're building some sort of fencing simulation program. The first thing you want to do is build a class for the <a href="https://en.wikipedia.org/wiki/Foil_(fencing)">foil</a> because, let's face it, the coolest part about fencing is the weapons, so you set up the initializer with some attributes - a grip attribute to know the grip type and an FIE attribute to know if it's going to legal for certain competitions. It looks like this for now:</p>
+
+{% highlight ruby %}
+class Foil
+  def initialize(args)
+    @grip = args[:grip]
+    @fie = args[:fie]
+  end
+end
+{% endhighlight %}
+
+<p>Now for the behavior. You think about it a bit, and decide the most important thing a foil can do is depress its point (because unlike DRY code, no one wants dry fencing - this is a joke specifically meant for programmers who fence) and then it spirals a bit so you end up with something like this:</p>
+
+<pre><code class="language-ruby">
+class Foil
+  attr_accessor :points
+
+  def initialize(args)
+    @grip = args[:grip]
+    @fie = args[:fie]
+    @points = 0
+  end
+
+  def depress_point(target)
+    if vaild?(target)
+      self.points +=1
+    else
+      "off target"
+    end
+  end
+
+  def valid?(target)
+    target == "lamé"
+  end
+end</code></pre>
+
+<p>Now following Sandi Metz's advice, we can try to describe it in a sentence and "The foil class can score points" <em>seems</em> fine, but let's use the other technique and try pretending the foil can tell us what it does it will respond something along the lines of:</p>
+
+<ul>
+<li>I know my grip type</li>
+<li>I know if I'm competition certified</li>
+<li>I know how many points I've scored</li>
+<li>I can depress my point</li>
+<li>I know if the target I hit is valid</li>
+<ul><li>(and increase my score when I do)</li></ul>
+</ul>
+
+<p>What's great with this example is it's based on a real world object, so we can also interrogate a real tangible foil to see what it does. Now, I know my hobby isn't the most common sport in the world, but I think even non-fencers can start thinking that it's a bit sketch that the foil can keep track of its own points. Here's what the real foil can do:</p>
+
+<ul>
+<li>Does it know its grip type?</li>
+  <ul><li>Yup! The grip is part of the foil</li></ul>
+<li>Does it know if it's FIE certified</li>
+  <ul><li>Hmm. Actually the FIE knows this, not the foil and they have decertfied equipment before, so this is definitely in question.</li></ul>
+<li>Does it know its fencer's score?</li>
+  <ul><li>Nope. The foil has no way of keeping track of that.</li></ul>
+<li>Can it depress its point?</li>
+  <ul><li>Yup! That's a key functionality of an electric foil</li></ul>
+<li>Does it know when the target is valid</li>
+  <ul><li>Well... We'll go with no. Technically a circuit is completed when it hits the lamé and then the scoring machine determines if that's the right signal or not. So it knows what </li></ul>
+<li>Can it increase the score when its point is depressed?</li>
+  <ul><li>Certainly not! Even if it knew if it hit a valid target, it has no way of knowing who had right-of-way or if the bout was even happening. </li></ul>
+</ul>
+
+<p>So thanks to these series of questions we know for sure it does several more things than a real foil does, and should probably be revised. Now that we've revised it: </p>
+
+<pre><code class="language-ruby">
+class Foil
+  def initialize(args)
+    @grip = args[:grip]
+  end
+
+  def depress_point(target)
+    if complete_circuit?(target)
+      "on target"
+    else
+      "off target"
+    end
+  end
+
+  private
+  def complete_circuit?(target)
+    target == "lamé"
+  end
+end
+</code></pre>
+
+<p>I'm not sure if I love the idea that the foil knows what it needs the target to look like in order to complete a circuit, but if something better comes along in the future, we can always change it then.</p>
+
+<p>That's the other thing about SRP - it's more nebulous than it might immediately appear. After all "Single Responsibility Principle" looks so clear and simple. But once applied it becomes a lot more like ¯\_(ツ)_/¯  a lot of the time. That's the whole point of refactoring. Getting bogged down in the details is really, really easy to do while trying to get something to work. It becomes very easy to miss the forest for the trees - or at least it does for me. I'm still working on learning how to refactor these things, but  </p>
+
+</div>

@@ -7,3 +7,7 @@ tag_page_data:
   sitemap: false
 paginate: 5
 paginate_path: "/blog/page-:num/"
+
+# Build settings
+highlighter: pygments
+encoding: utf-8
