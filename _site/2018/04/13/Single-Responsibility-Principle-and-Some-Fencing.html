@@ -95,14 +95,14 @@ end</code></pre>
 <ul>
 <li>Does it know its grip type?</li>
   <ul><li>Yup! The grip is part of the foil</li></ul>
-<li>Does it know if it's FIE certified</li>
+<li>Does it know if it's FIE certified?</li>
   <ul><li>Hmm. Actually the FIE knows this, not the foil and they have decertfied equipment before, so this is definitely in question.</li></ul>
 <li>Does it know its fencer's score?</li>
   <ul><li>Nope. The foil has no way of keeping track of that.</li></ul>
 <li>Can it depress its point?</li>
   <ul><li>Yup! That's a key functionality of an electric foil</li></ul>
 <li>Does it know when the target is valid</li>
-  <ul><li>Well... We'll go with no. Technically a circuit is completed when it hits the lamé and then the scoring machine determines if that's the right signal or not. So it knows what </li></ul>
+  <ul><li>Well... We'll go with no. Technically a circuit is completed when it hits the lamé and then the scoring machine determines if that's the right signal or not. So it knows what type of signal to send. </li></ul>
 <li>Can it increase the score when its point is depressed?</li>
   <ul><li>Certainly not! Even if it knew if it hit a valid target, it has no way of knowing who had right-of-way or if the bout was even happening. </li></ul>
 </ul>
@@ -132,7 +132,7 @@ end
 
 <p>I'm not sure if I love the idea that the foil knows what it needs the target to look like in order to complete a circuit, but if something better comes along in the future, we can always change it then.</p>
 
-<p>That's the other thing about SRP - it's more nebulous than it might immediately appear. After all "Single Responsibility Principle" looks so clear and simple. But once applied it becomes a lot more like ¯\_(ツ)_/¯  a lot of the time. That's the whole point of refactoring. Getting bogged down in the details is really, really easy to do while trying to get something to work. It becomes very easy to miss the forest for the trees - or at least it does for me. I'm still working on learning how to refactor these things, but  </p>
+<p>That's the other thing about SRP - it's more nebulous than it might immediately appear. After all "Single Responsibility Principle" looks so clear and simple. But once applied it becomes a lot more like ¯\_(ツ)_/¯  a lot of the time. That's the whole point of refactoring. Getting bogged down in the details is really, really easy to do while trying to get something to work. It becomes very easy to miss the forest for the trees - or at least it does for me. I'm still working on learning how to refactor these things, but closer to SRP is better than giving up. My current code frequently aims for "As few responsibilities as I can humanly manage" right now. And practice makes perfect in both fencing and making one's code adhere to SOLID principles.</p>
 
 </div>
 
