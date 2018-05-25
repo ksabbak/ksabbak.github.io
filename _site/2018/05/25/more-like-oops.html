@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>K. Sabbak</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="/css/content.css" type="text/css">
+	<link rel="stylesheet" href="/css/normalize.css" type="text/css">
+</head>
+<body>
+	<a href="/" aria-label="Home"><header class="home-header">
+		<h1 class="title">K. Sabbak</h1>
+		<h2 class="subtitle">Developer</h2>
+	</header></a>
+	<nav>
+		<div class="subgrid">
+			<ul class="nav-list">
+				<li><i class="fa fa-pencil-square-o fa-2x fa-fw" aria-hidden="true"></i> <a href="/blog/">Blog</a> </li>
+				<li><i class="fa fa-linkedin-square fa-2x fa-fw" aria-hidden="true"></i> <a href="https://www.linkedin.com/in/ksabbak/">LinkedIn</a></li>
+				<li><i class="fa fa-github fa-2x fa-fw" aria-hidden="true"></i> <a href="https://github.com/ksabbak">Github</a></li>
+				<li><i class="fa fa-twitter fa-2x fa-fw" aria-hidden="true"></i> <a href="https://twitter.com/K_Sabbak">Twitter</a></li>
+				<li><i class="fa fa-file-pdf-o fa-2x fa-fw" aria-hidden="true"></i> <a href="/resources/ksabbak_resume.pdf" download>Resume</a></li>
+			</ul>
+		</div>
+	</nav>
+	<div class="main">
+		<div class="blog-container">
+  <h2 class="blog-title">More like 'Oops' am I right?</h2>
+
+  <div class="blog-post">
+    <p class="blog-meta">
+    	<span class="blog-date">May 25, 2018</span>
+    </p>
+    <article>
+      <div class="content post-body">
+
+<p>I just spent a good chunk of my time in the world of Clojure learning functional programming. It was hard (and fun) and I expected it to be hard (and hoped it would be fun). Now I'm working on learning Java and back in the world of object oriented programming and while I expected Java to be hard and not fun (so far I'm right), what I didn't expect is... what's OOP?</p>
+
+<!--more-->
+
+<p>I swear I spent the first week of Java trying to figure out how to test things again. Not because I needed to learn JUnit, but because... how do you test in OOP again? I refactored a class the other day because I realized that I was passing things around that I didn't need to. It was already something the object knew about itself. It's so weird. I figured there'd be some ramp-up. Any time I try to jump back into Ruby I need a little time to fully get back into the swing of it, but this feels a lot more like I felt when I started trying to write FP than it does returning to a language that's been gathering a bit of dust.</p>
+
+<p>This method for example:</p>
+
+<pre><code class="language-java">
+      private String pullElement(int elementPosition){
+        String[] components = text.split(" ");
+        return components[elementPosition];
+    }
+</code></pre>
+
+<p>Was sitting around in my code with <code>text</code> being passed in for some reason and I didn't notice it. For a week. Maybe because it wasn't being called outside the class, so I didn't have to type <code>this.</code> in front of it or explicitly call an instance so it wasn't like, <em>so</em> apparent I was passing around a property I had access to without doing that. I guess. I'm making excuses. </p>
+
+<p>I think this is teaching me that I didn't know OOP as well as I thought I did. Or that it's really easy to forget things when you immerse yourself in a new world. To fix the first possible problem, I'm just going to keep learning - nothing new there. To fix the second possible problem, I'm trying to come up with a side project I can tinker with in Clojure or maybe pick up Elixir. What I learned about FP is still very defined in my mind, but I don't need to have a week of style jet-lag every time I switch contexts. </p>
+
+<p>Plus, I hardly have a comprehensive knowledge FP (or Clojure), so that's a side benefit for sure.</p>
+
+</div>
+
+    </article>
+    <p class="blog-meta">
+      <span class="tags">Tags:
+      	
+      		<a href="/tag/object-oriented-programming.html">object-oriented-programming</a>
+      	
+      		<a href="/tag/functional-programming.html">functional-programming</a>
+      	
+      </span>
+     </p>
+  </div>
+  <hr />
+</div>
+
+	</div>
+	<div class="stripe"></div>
+</body>
+</html>
