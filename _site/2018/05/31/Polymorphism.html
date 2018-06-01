@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>K. Sabbak</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="/css/content.css" type="text/css">
+	<link rel="stylesheet" href="/css/monokai.css" type="text/css">
+	<link rel="stylesheet" href="/css/normalize.css" type="text/css">
+</head>
+<body>
+	<a href="/" aria-label="Home"><header class="home-header">
+		<h1 class="title">K. Sabbak</h1>
+		<h2 class="subtitle">Developer</h2>
+	</header></a>
+	<nav>
+		<div class="subgrid">
+			<ul class="nav-list">
+				<li><i class="fa fa-pencil-square-o fa-2x fa-fw" aria-hidden="true"></i> <a href="/blog/">Blog</a> </li>
+				<li><i class="fa fa-linkedin-square fa-2x fa-fw" aria-hidden="true"></i> <a href="https://www.linkedin.com/in/ksabbak/">LinkedIn</a></li>
+				<li><i class="fa fa-github fa-2x fa-fw" aria-hidden="true"></i> <a href="https://github.com/ksabbak">Github</a></li>
+				<li><i class="fa fa-twitter fa-2x fa-fw" aria-hidden="true"></i> <a href="https://twitter.com/K_Sabbak">Twitter</a></li>
+				<li><i class="fa fa-file-pdf-o fa-2x fa-fw" aria-hidden="true"></i> <a href="/resources/ksabbak_resume.pdf" download>Resume</a></li>
+			</ul>
+		</div>
+	</nav>
+	<div class="main">
+		<div class="blog-container">
+  <h2 class="blog-title">The Many Forms of Polymorphism</h2>
+
+  <div class="blog-post">
+    <p class="blog-meta">
+    	<span class="blog-date">May 31, 2018</span>
+    </p>
+    <article>
+      <p>Polymorphism.</p>
+
+<!--more-->
+
+<p><img src="https://i.imgur.com/pUxWK6A.gif" alt="The card Polymorph from the game HearthStone, it morphs an opponent's minion into a sheep" title="baaaaa" /></p>
+
+<p>No, not like that.</p>
+
+<p>It’s a big fancy word that means one function can actually do a bunch of different things. In Object Oriented Programming it usually means that multiple objects have the a method with the same name and different behavior. In Functional Programming it has to work a little differently, but the same general concept exists and we’ll see an example of it from Clojure here. In <em>Practical Object-Oriented Design in Ruby</em>, Sandi Metz defines Polymorphism as</p>
+<blockquote>
+  <p>Polymorphism in OOP refers to the ability of many different objects to respond to the same message. Senders of the message need not care about the class of the receiver; receivers supply their own specific version of the behavior.</p>
+</blockquote>
+
+<p>While this is a useful description of what Polymorphism is, it’s only half of the information we need.</p>
+
+<p>A couple paragraphs later, Metz also says</p>
+<blockquote>
+  <p>Polymorphic methods honor an implicit bargain; they agree to be interchangeable from the sender’s point of view. Any object implementing a polymorphic method can be substituted for any other; the sender of the message need not know or care about this substitution.</p>
+</blockquote>
+
+<p>Although saying that polymorphism is one function name that covers many different behaviors is sufficiently descriptive of what it is, Sandi Metz’s making explicit the “implicit bargain” makes the concept actually usable in one’s code.</p>
+
+<p>An example of polymorphism that follows the “implicit bargain” would be if you told people to “dance” and a ballerina does ballet but a tap dancer taps. In both cases the dancer is moving and performing, and while these behaviors aren’t completely interchangeable, they are close enough that the “sender” doesn’t need to care which one is happening. On the other hand, if you tell two people “lie” and one says “The sky is green” and the other gets in a prone position, that’s a problem. In this case you have one person essentially returning a string and the other one changing state. These things are not interchangeable and can have effects later on in the program, though I guess technically might still fall under the category of polymorphic since both objects (people) respond to the same message (“lie”).</p>
+
+<p>In OOP you can implement polymorphism through inheritance. A Dancer class can have the function dance, and anything that inherits from Dancer can have its own specific implementation of that function.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Dancer</span>
+  <span class="k">def</span> <span class="nf">dance</span>
+    <span class="s2">"moves to the music"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">class</span> <span class="nc">Ballerina</span> <span class="o">&lt;</span> <span class="no">Dancer</span>
+  <span class="k">def</span> <span class="nf">dance</span>
+    <span class="s2">"plié, jeté"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">class</span> <span class="nc">TapDancer</span> <span class="o">&lt;</span> <span class="no">Dancer</span>
+  <span class="k">def</span> <span class="nf">dance</span>
+    <span class="s2">"tappity tap tap"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">class</span> <span class="nc">Performance</span>
+  <span class="nb">attr_reader</span> <span class="ss">:performers</span>
+
+  <span class="k">def</span> <span class="nf">innititalize</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+    <span class="vi">@performers</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="ss">:performers</span><span class="p">]</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">perform</span>
+    <span class="n">performers</span><span class="p">.</span><span class="nf">each</span> <span class="p">{</span><span class="o">|</span><span class="n">performer</span><span class="o">|</span> <span class="n">performer</span><span class="p">.</span><span class="nf">dance</span><span class="p">}</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>As we can see above, I know nothing about dancing, but also we can initialize Performance with an array of Dancer objects and those objects can be a generic dancer or any of its subclasses because they all have a dance method and the show will go on!</p>
+
+<p>In languages that aren’t strongly typed, you can use duck typing for the same thing and not even need inheritance. A butterfly and an airplane probably shouldn’t inherit from the same superclass, but they can both fly, and maybe in some point in the code, an object that can fly gets passed in and that’s all that matters. You also don’t need inheritance in languages that use Interfaces (like Java) and in those languages one doesn’t even have to worry about the “implicit bargain” because the return value is made explicit.</p>
+
+<p>In FP, since we don’t have objects and classes, things have to work a little differently, but that doesn’t mean that polymorphism can’t still happen. For example, Clojure has a thing called multi-methods that can switch what happens based on the arguments given. For example, going back to dancers:</p>
+
+<div class="language-clojure highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="k">defmulti</span><span class="w"> </span><span class="n">dance</span><span class="w"> </span><span class="p">(</span><span class="k">fn</span><span class="w"> </span><span class="p">[</span><span class="n">dancer</span><span class="p">]</span><span class="w"> </span><span class="p">(</span><span class="no">:skills</span><span class="w"> </span><span class="n">dancer</span><span class="p">)))</span><span class="w">
+
+  </span><span class="p">(</span><span class="k">defmethod</span><span class="w"> </span><span class="n">dance</span><span class="w"> </span><span class="no">:ballet</span><span class="w"> </span><span class="p">[</span><span class="n">_</span><span class="p">]</span><span class="w">
+    </span><span class="s">"plié, jeté"</span><span class="p">)</span><span class="w">
+
+  </span><span class="p">(</span><span class="k">defmethod</span><span class="w"> </span><span class="n">dance</span><span class="w"> </span><span class="no">:tap</span><span class="w"> </span><span class="p">[</span><span class="n">_</span><span class="p">]</span><span class="w">
+    </span><span class="s">"tappity tap tap"</span><span class="p">)</span><span class="w">
+
+  </span><span class="p">(</span><span class="k">defmethod</span><span class="w"> </span><span class="n">dance</span><span class="w"> </span><span class="no">:default</span><span class="w"> </span><span class="p">[</span><span class="n">_</span><span class="p">]</span><span class="w">
+    </span><span class="s">"moves to the music"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>And now we can call whichever one we want as long as we throw the right arguments in. Clojure also has a thing called protocols that work a lot more like objects. And FP languages that aren’t Clojure have their own forms of polymorphism.</p>
+
+<p>Essentially polymorphism is the ability to not care so much, which means that code will be a lot easier to modify when things need to change. This is an essential part of life and writing code, so it’s really no wonder that every language I’ve encountered so far has polymorphism in some form or another.</p>
+
+
+    </article>
+    <p class="blog-meta">
+      <span class="tags">Tags:
+      	
+      		<a href="/tag/polymorphism.html">polymorphism</a>
+      	
+      </span>
+     </p>
+  </div>
+  <hr />
+</div>
+
+	</div>
+	<div class="stripe"></div>
+</body>
+</html>

@@ -34,12 +34,15 @@ blockquote {
 	font-size: 200%;
 	margin: 0;
 }
-.post-body {
+.post-body,
+article,
+.blog-post > p {
 	font-size: 90%;
 	line-height: 1.5;
 }
 
-.post-body > p {
+.post-body > p,
+article > p {
 	margin-bottom: 1.25em;
 }
 
@@ -101,8 +104,7 @@ nav {
 nav a,
 nav li:hover,
 a,
-.blog-title,
-code {
+.blog-title {
 	color: #fc3592;
 	text-decoration: none;
 }
