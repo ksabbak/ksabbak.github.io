@@ -46,36 +46,21 @@
 
 <p>Recently I found myself building a command-line app in python that, for aesthetic purposes, I wanted to present things on a fresh clear screen a lot of the time. Instead of dumping in the code for a fresh screen in every spot in the code that needed it, I just built a print_clear method, that way if I messed it up, or if in the future I wanted a different view feature like some ASCII art, I could just change the one function.</p>
 
-<pre><code class="language-python">
-  def print_clear():
-        print(chr(27) + "[2J" + chr(27) + "[0;0H")
-      </code></pre>
+<figure class="highlight"><pre><code class="language-python" data-lang="python">  <span class="k">def</span> <span class="nf">print_clear</span><span class="p">():</span><br data-jekyll-commonmark-ghpages>        <span class="k">print</span><span class="p">(</span><span class="nb">chr</span><span class="p">(</span><span class="mi">27</span><span class="p">)</span> <span class="o">+</span> <span class="s">"[2J"</span> <span class="o">+</span> <span class="nb">chr</span><span class="p">(</span><span class="mi">27</span><span class="p">)</span> <span class="o">+</span> <span class="s">"[0;0H"</span><span class="p">)</span></code></pre></figure>
 
 <p>“Don’t Repeat Yourself” is a highly demanding mandate. It’s more along the line of “Recognize repetition and then remove it” but RRaTRI is not nearly as easy to remember as DRY. For the very reason you may have trouble tracking down every last instance of a repeated pattern, sometimes you don’t always notice it as you’re writing it. The key part is to take action as soon as you do notice. And to get better at noticing. Getting better involves writing your code in smaller pieces. If you’re already looking to reuse something that’s already been written, you’re skipping the step where you write duplicate code. Nifty, right?</p>
 
 <p>So what about the “gotcha” part of DRY that I mentioned up top? We covered duplicating logic, but there’s another side and that’s duplicating knowledge. Let’s say you’re writing a game of tic tac toe. Right now, empty spots are taken up by integers, so all you have to do is check to see if an integer is there to see if the player can move into a space. Let’s write this in Clojure for funsies. The board is a vector of the spaces.</p>
 
-<pre><code class="language-clojure">
-(defn space-is-open? [space board]
-  (int? (board space)))
-</code></pre>
+<figure class="highlight"><pre><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="k">defn</span><span class="w"> </span><span class="n">space-is-open?</span><span class="w"> </span><span class="p">[</span><span class="n">space</span><span class="w"> </span><span class="n">board</span><span class="p">]</span><span class="w"><br data-jekyll-commonmark-ghpages>  </span><span class="p">(</span><span class="nf">int?</span><span class="w"> </span><span class="p">(</span><span class="nf">board</span><span class="w"> </span><span class="n">space</span><span class="p">)))</span></code></pre></figure>
 
 <p>This is saying, hey, check if this particular space is an int, if it is, then return true, otherwise return false. Nice, right? Now let’s say we want to check if the board is full, we could write</p>
 
-<pre><code class="language-clojure">
-(defn board-full? [board]
-  (not (some number? board)))
-</code></pre>
+<figure class="highlight"><pre><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="k">defn</span><span class="w"> </span><span class="n">board-full?</span><span class="w"> </span><span class="p">[</span><span class="n">board</span><span class="p">]</span><span class="w"><br data-jekyll-commonmark-ghpages>  </span><span class="p">(</span><span class="nb">not</span><span class="w"> </span><span class="p">(</span><span class="nb">some</span><span class="w"> </span><span class="n">number?</span><span class="w"> </span><span class="n">board</span><span class="p">)))</span></code></pre></figure>
 
  <p>or we could write</p>
 
-<pre><code class="language-clojure">
-(defn board-full? [board]
-  (->> (range)
-      (take (count board))
-      (some #(space-is-open? % board))
-      (not)))
-    </code></pre>
+<figure class="highlight"><pre><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="k">defn</span><span class="w"> </span><span class="n">board-full?</span><span class="w"> </span><span class="p">[</span><span class="n">board</span><span class="p">]</span><span class="w"><br data-jekyll-commonmark-ghpages>  </span><span class="p">(</span><span class="nf">-&gt;&gt;</span><span class="w"> </span><span class="p">(</span><span class="nb">range</span><span class="p">)</span><span class="w"><br data-jekyll-commonmark-ghpages>      </span><span class="p">(</span><span class="nb">take</span><span class="w"> </span><span class="p">(</span><span class="nb">count</span><span class="w"> </span><span class="n">board</span><span class="p">))</span><span class="w"><br data-jekyll-commonmark-ghpages>      </span><span class="p">(</span><span class="nb">some</span><span class="w"> </span><span class="o">#</span><span class="p">(</span><span class="nf">space-is-open?</span><span class="w"> </span><span class="n">%</span><span class="w"> </span><span class="n">board</span><span class="p">))</span><span class="w"><br data-jekyll-commonmark-ghpages>      </span><span class="p">(</span><span class="nb">not</span><span class="p">)))</span></code></pre></figure>
 
 <p>You look at the first one and are like, wow, look at how simple and clean that is, let’s go with that one! But is it clean? What happens in the future where instead of having an int in an empty spot we have nil or an empty string? “It’s just a small fix!” you might say. Well, sure, it is a small fix in <code>board-full?</code> and in <code>space-is-open?</code>. The second version of the code is a bit more verbose but it doesn’t change if the representation of the board changes as long as we can rely on space-is-open taking the space and the board. Even if the board becomes a map, it will work where version number one wouldn’t.</p>
 
