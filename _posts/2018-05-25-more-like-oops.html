@@ -17,12 +17,12 @@ tags:
 
 <p>This method for example:</p>
 
-<pre><code class="language-java">
+{% highlight Java %}
       private String pullElement(int elementPosition){
         String[] components = text.split(" ");
         return components[elementPosition];
     }
-</code></pre>
+{% endhighlight %}
 
 <p>Was sitting around in my code with <code>text</code> being passed in for some reason and I didn't notice it. For a week. Maybe because it wasn't being called outside the class, so I didn't have to type <code>this.</code> in front of it or explicitly call an instance so it wasn't like, <em>so</em> apparent I was passing around a property I had access to without doing that. I guess. I'm making excuses. </p>
 

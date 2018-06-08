@@ -10,13 +10,13 @@ tags:
 <div class="content post-body">
 
 
-<p>On the surface “Don’t Repeat Yourself” (DRY) seems pretty self-explanatory. It’s the concept in writing code that one should … never repeat oneself. Simple! Well, mostly. There’s actually two parts to this, and the second one is the hidden gotcha that took me quite a while to grasp, and I’m still working on actually applying that knowledge to what I write.</p>
+<p>On the surface "Don't Repeat Yourself" (DRY) seems pretty self-explanatory. It's the concept in writing code that one should … never repeat oneself. Simple! Well, mostly. There's actually two parts to this, and the second one is the hidden gotcha that took me quite a while to grasp, and I'm still working on actually applying that knowledge to what I write.</p>
 
 <!--more-->
 
-<p>The first form of DRY is the most obvious. If you find yourself writing really any chunk of logic more than once, stop. Pull it out into its own function (or your language’s equivalent) so you can call it again and again without having to retype what’s inside. The reasons behind this are pretty simple. A lot of editors and IDEs have autocomplete for function/variable names but not for formulae. So even if you have to name your function something you have a hard time spelling, your computer is there to help and support you in a way that it just can’t when it comes to repeatedly typing mathy things that calculate totals or conditional logic that’s several lines long.</p>
+<p>The first form of DRY is the most obvious. If you find yourself writing really any chunk of logic more than once, stop. Pull it out into its own function (or your language's equivalent) so you can call it again and again without having to retype what's inside. The reasons behind this are pretty simple. A lot of editors and IDEs have autocomplete for function/variable names but not for formulae. So even if you have to name your function something you have a hard time spelling, your computer is there to help and support you in a way that it just can't when it comes to repeatedly typing mathy things that calculate totals or conditional logic that's several lines long.</p>
 
-<p>Furthermore, if you do make a mistake or your requirements change, you have to find every spot in your code where you used it. Which may be as easy as a find-and-replace, but it might not if you use different variable names in different spots… and the more places it’s used, the more likely you’re going to miss it somewhere.</p>
+<p>Furthermore, if you do make a mistake or your requirements change, you have to find every spot in your code where you used it. Which may be as easy as a find-and-replace, but it might not if you use different variable names in different spots… and the more places it's used, the more likely you're going to miss it somewhere.</p>
 
 <p>Recently I found myself building a command-line app in python that, for aesthetic purposes, I wanted to present things on a fresh clear screen a lot of the time. Instead of dumping in the code for a fresh screen in every spot in the code that needed it, I just built a print_clear method, that way if I messed it up, or if in the future I wanted a different view feature like some ASCII art, I could just change the one function.</p>
 
@@ -25,16 +25,16 @@ tags:
         print(chr(27) + "[2J" + chr(27) + "[0;0H")
 {% endhighlight %}
 
-<p>“Don’t Repeat Yourself” is a highly demanding mandate. It’s more along the line of “Recognize repetition and then remove it” but RRaTRI is not nearly as easy to remember as DRY. For the very reason you may have trouble tracking down every last instance of a repeated pattern, sometimes you don’t always notice it as you’re writing it. The key part is to take action as soon as you do notice. And to get better at noticing. Getting better involves writing your code in smaller pieces. If you’re already looking to reuse something that’s already been written, you’re skipping the step where you write duplicate code. Nifty, right?</p>
+<p>"Don't Repeat Yourself" is a highly demanding mandate. It's more along the line of "Recognize repetition and then remove it" but RRaTRI is not nearly as easy to remember as DRY. For the very reason you may have trouble tracking down every last instance of a repeated pattern, sometimes you don't always notice it as you're writing it. The key part is to take action as soon as you do notice. And to get better at noticing. Getting better involves writing your code in smaller pieces. If you're already looking to reuse something that's already been written, you're skipping the step where you write duplicate code. Nifty, right?</p>
 
-<p>So what about the “gotcha” part of DRY that I mentioned up top? We covered duplicating logic, but there’s another side and that’s duplicating knowledge. Let’s say you’re writing a game of tic tac toe. Right now, empty spots are taken up by integers, so all you have to do is check to see if an integer is there to see if the player can move into a space. Let’s write this in Clojure for funsies. The board is a vector of the spaces.</p>
+<p>So what about the "gotcha" part of DRY that I mentioned up top? We covered duplicating logic, but there's another side and that's duplicating knowledge. Let's say you're writing a game of tic tac toe. Right now, empty spots are taken up by integers, so all you have to do is check to see if an integer is there to see if the player can move into a space. Let's write this in Clojure for funsies. The board is a vector of the spaces.</p>
 
 {% highlight clojure %}
 (defn space-is-open? [space board]
   (int? (board space)))
 {% endhighlight %}
 
-<p>This is saying, hey, check if this particular space is an int, if it is, then return true, otherwise return false. Nice, right? Now let’s say we want to check if the board is full, we could write</p>
+<p>This is saying, hey, check if this particular space is an int, if it is, then return true, otherwise return false. Nice, right? Now let's say we want to check if the board is full, we could write</p>
 
 {% highlight clojure %}
 (defn board-full? [board]
@@ -51,11 +51,11 @@ tags:
       (not)))
 {% endhighlight %}
 
-<p>You look at the first one and are like, wow, look at how simple and clean that is, let’s go with that one! But is it clean? What happens in the future where instead of having an int in an empty spot we have nil or an empty string? “It’s just a small fix!” you might say. Well, sure, it is a small fix in <code>board-full?</code> and in <code>space-is-open?</code>. The second version of the code is a bit more verbose but it doesn’t change if the representation of the board changes as long as we can rely on space-is-open taking the space and the board. Even if the board becomes a map, it will work where version number one wouldn’t.</p>
+<p>You look at the first one and are like, wow, look at how simple and clean that is, let's go with that one! But is it clean? What happens in the future where instead of having an int in an empty spot we have nil or an empty string? "It's just a small fix!" you might say. Well, sure, it is a small fix in <code>board-full?</code> and in <code>space-is-open?</code>. The second version of the code is a bit more verbose but it doesn't change if the representation of the board changes as long as we can rely on space-is-open taking the space and the board. Even if the board becomes a map, it will work where version number one wouldn't.</p>
 
-<p>DRY with knowledge duplication is a little harder than DRY with logic duplication because it’s harder to see. There’s rarely an obvious visual pattern and sometimes, like with the example above, it might seem nicer to write the code in a way that duplicates knowledge, especially if knowledge ends up duplicated in the same class or namespace. Where’s the harm really?</p>
+<p>DRY with knowledge duplication is a little harder than DRY with logic duplication because it's harder to see. There's rarely an obvious visual pattern and sometimes, like with the example above, it might seem nicer to write the code in a way that duplicates knowledge, especially if knowledge ends up duplicated in the same class or namespace. Where's the harm really?</p>
 
-<p>I’m not here to make that value call for you, but if you’re trying to follow DRY then don’t repeat your knowledge, not just your logic.</p>
+<p>I'm not here to make that value call for you, but if you're trying to follow DRY then don't repeat your knowledge, not just your logic.</p>
 
 
 </div>
