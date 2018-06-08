@@ -57,28 +57,7 @@ and
 
 <p>Now for the behavior. You think about it a bit, and decide the most important thing a foil can do is depress its point (because unlike DRY code, no one wants dry fencing - this is a joke specifically meant for programmers who fence) and then it spirals a bit so you end up with something like this:</p>
 
-<pre><code class="language-ruby">
-class Foil
-  attr_accessor :points
-
-  def initialize(args)
-    @grip = args[:grip]
-    @fie = args[:fie]
-    @points = 0
-  end
-
-  def depress_point(target)
-    if vaild?(target)
-      self.points +=1
-    else
-      "off target"
-    end
-  end
-
-  def valid?(target)
-    target == "lamé"
-  end
-end</code></pre>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">Foil</span><br data-jekyll-commonmark-ghpages>  <span class="nb">attr_accessor</span> <span class="ss">:points</span><br data-jekyll-commonmark-ghpages><br data-jekyll-commonmark-ghpages>  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">args</span><span class="p">)</span><br data-jekyll-commonmark-ghpages>    <span class="vi">@grip</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="ss">:grip</span><span class="p">]</span><br data-jekyll-commonmark-ghpages>    <span class="vi">@fie</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="ss">:fie</span><span class="p">]</span><br data-jekyll-commonmark-ghpages>    <span class="vi">@points</span> <span class="o">=</span> <span class="mi">0</span><br data-jekyll-commonmark-ghpages>  <span class="k">end</span><br data-jekyll-commonmark-ghpages><br data-jekyll-commonmark-ghpages>  <span class="k">def</span> <span class="nf">depress_point</span><span class="p">(</span><span class="n">target</span><span class="p">)</span><br data-jekyll-commonmark-ghpages>    <span class="k">if</span> <span class="n">vaild?</span><span class="p">(</span><span class="n">target</span><span class="p">)</span><br data-jekyll-commonmark-ghpages>      <span class="nb">self</span><span class="p">.</span><span class="nf">points</span> <span class="o">+=</span><span class="mi">1</span><br data-jekyll-commonmark-ghpages>    <span class="k">else</span><br data-jekyll-commonmark-ghpages>      <span class="s2">"off target"</span><br data-jekyll-commonmark-ghpages>    <span class="k">end</span><br data-jekyll-commonmark-ghpages>  <span class="k">end</span><br data-jekyll-commonmark-ghpages><br data-jekyll-commonmark-ghpages>  <span class="k">def</span> <span class="nf">valid?</span><span class="p">(</span><span class="n">target</span><span class="p">)</span><br data-jekyll-commonmark-ghpages>    <span class="n">target</span> <span class="o">==</span> <span class="s2">"lamé"</span><br data-jekyll-commonmark-ghpages>  <span class="k">end</span><br data-jekyll-commonmark-ghpages><span class="k">end</span></code></pre></figure>
 
 <p>Now following Sandi Metz's advice, we can try to describe it in a sentence and "The foil class can score points" <em>seems</em> fine, but let's use the other technique and try pretending the foil can tell us what it does it will respond something along the lines of:</p>
 
@@ -110,26 +89,7 @@ end</code></pre>
 
 <p>So thanks to these series of questions we know for sure it does several more things than a real foil does, and should probably be revised. Now that we've revised it: </p>
 
-<pre><code class="language-ruby">
-class Foil
-  def initialize(args)
-    @grip = args[:grip]
-  end
-
-  def depress_point(target)
-    if complete_circuit?(target)
-      "on target"
-    else
-      "off target"
-    end
-  end
-
-  private
-  def complete_circuit?(target)
-    target == "lamé"
-  end
-end
-</code></pre>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">Foil</span><br data-jekyll-commonmark-ghpages>  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">args</span><span class="p">)</span><br data-jekyll-commonmark-ghpages>    <span class="vi">@grip</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="ss">:grip</span><span class="p">]</span><br data-jekyll-commonmark-ghpages>  <span class="k">end</span><br data-jekyll-commonmark-ghpages><br data-jekyll-commonmark-ghpages>  <span class="k">def</span> <span class="nf">depress_point</span><span class="p">(</span><span class="n">target</span><span class="p">)</span><br data-jekyll-commonmark-ghpages>    <span class="k">if</span> <span class="n">complete_circuit?</span><span class="p">(</span><span class="n">target</span><span class="p">)</span><br data-jekyll-commonmark-ghpages>      <span class="s2">"on target"</span><br data-jekyll-commonmark-ghpages>    <span class="k">else</span><br data-jekyll-commonmark-ghpages>      <span class="s2">"off target"</span><br data-jekyll-commonmark-ghpages>    <span class="k">end</span><br data-jekyll-commonmark-ghpages>  <span class="k">end</span><br data-jekyll-commonmark-ghpages><br data-jekyll-commonmark-ghpages>  <span class="kp">private</span><br data-jekyll-commonmark-ghpages>  <span class="k">def</span> <span class="nf">complete_circuit?</span><span class="p">(</span><span class="n">target</span><span class="p">)</span><br data-jekyll-commonmark-ghpages>    <span class="n">target</span> <span class="o">==</span> <span class="s2">"lamé"</span><br data-jekyll-commonmark-ghpages>  <span class="k">end</span><br data-jekyll-commonmark-ghpages><span class="k">end</span></code></pre></figure>
 
 <p>I'm not sure if I love the idea that the foil knows what it needs the target to look like in order to complete a circuit, but if something better comes along in the future, we can always change it then.</p>
 

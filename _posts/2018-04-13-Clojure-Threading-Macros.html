@@ -15,9 +15,10 @@ tags:
 
 <p>So, when left unchecked, I can easily write functions in Clojure that look a bit like this:</p>
 
-<pre><code class="language-clojure">
+{% highlight clojure %}
 (defn stringify-options [options]
-  (dorun (map println (map-indexed #(str (+ %1 1) ". " %2) options))))</code></pre>
+  (dorun (map println (map-indexed #(str (+ %1 1) ". " %2) options))))
+  {% endhighlight %}
 
 <p>This fun little function takes in a vector and prints out a human-readable list. So if you pass it in something like <code>["Learn to program" "Write in Clojure" "???" "Profit!"]</code> it'll spit out something that looks like this:</p>
 
@@ -32,13 +33,13 @@ tags:
 
 <p>The solution is the <a href="https://clojure.org/guides/threading_macros">threading macro</a>. The long train-wreck above can be turned into:</p>
 
-<pre><code class="language-clojure">
+{% highlight clojure %}
  (defn stringify-options [options]
   (->> options
     (map-indexed #(str (+ %1 1) ". " %2))
     (map println)
     (dorun)))
-  </code></pre>
+{% endhighlight %}
 
     <p>  The longest line of that code is only 37 characters long. That's not even as many as four tens, and that's wonderful!</p>
 
@@ -50,28 +51,30 @@ tags:
 
     <p>  Let's start us off with a function that could use some clean-up</p>
 
- <pre><code class="language-clojure">
+{% highlight clojure %}
 (defn assess-winner [board]
   (first (some #(when (apply = %) %) (potential-wins board))))
-</code></pre>
+{% endhighlight %}
 
    <p>Now, this function basically helps determine who the winner of a tictactoe game is. And what it lacks in instant clarity now, it'll make up for with bad ideas in a second. So, let's apply the thread-first macro. As one can guess, the macro places the result of the first line into the FIRST argument spot on the next line. A little harder to immediately grasp, so I'm borrowing from the official Clojure explanation on this one and using commas where the previous line gets placed. Also it looks like this <code>-></code>, which is just one <code>></code> short of a thread-last macro.</p>
 
- <pre><code class="language-clojure">
+{% highlight clojure %}
  (defn assess-winner [board]
    (-> #(when (apply = %) %)
      (some ,,, (potential-wins board))
-     (first ,,,)))</code></pre>
+     (first ,,,)))
+{% endhighlight %}
 
 <p>Handy! But why didn't I split up that anonymous function? Well, you can't directly, but you can if you nest threading macros.</p>
 
-<pre><code class="language-clojure">
+{% highlight clojure %}
 (defn assess-winner [board]
   (-> #(-> =
         (apply %)
         (when  %))
     (some (potential-wins board))
-    (first)))</code></pre>
+    (first)))
+{% endhighlight %}
 
     <p>...</p>
 
@@ -79,13 +82,13 @@ tags:
 
       <p>But what if our code isn't so conveniently laid out that it makes sense to use first or last, what if it's first sometimes, last other times and then just??? That's fine too. Let's return to our first example, the one that prints nice, human readable lists from a vector. Let's say you wanted to pull out that anonymous function first because it just seems cleaner to put it on its own line.</p>
 
-<pre><code class="language-clojure">
+{% highlight clojure %}
 (defn stringify-options [options]
   (as-> #(str (+ %1 1) ". " %2) arg
     (map-indexed arg options)
     (map println arg)
     (dorun arg)))
-</code></pre>
+{% endhighlight %}
 
     <p>Here we're using <code>as-></code>, this starts out like thread first or thread last macros, but now we also give it a name (in this case 'arg') and from that point on, wherever we put arg is where the macro will dump the assessment of the line before. This is especially handy because sometimes you want to use a few functions that don't order their arguments in convenient ways for you, and as a bonus, there's an obvious visual guide for how to read the function.</p>
 
