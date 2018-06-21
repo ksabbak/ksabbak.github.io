@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>K. Sabbak</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="/css/content.css" type="text/css">
+	<link rel="stylesheet" href="/css/monokai.css" type="text/css">
+	<link rel="stylesheet" href="/css/normalize.css" type="text/css">
+</head>
+<body>
+	<a href="/" aria-label="Home"><header class="home-header">
+		<h1 class="title">K. Sabbak</h1>
+		<h2 class="subtitle">Developer</h2>
+	</header></a>
+	<nav>
+		<div class="subgrid">
+			<ul class="nav-list">
+				<li><i class="fa fa-pencil-square-o fa-2x fa-fw" aria-hidden="true"></i> <a href="/blog/">Blog</a> </li>
+				<li><i class="fa fa-linkedin-square fa-2x fa-fw" aria-hidden="true"></i> <a href="https://www.linkedin.com/in/ksabbak/">LinkedIn</a></li>
+				<li><i class="fa fa-github fa-2x fa-fw" aria-hidden="true"></i> <a href="https://github.com/ksabbak">Github</a></li>
+				<li><i class="fa fa-twitter fa-2x fa-fw" aria-hidden="true"></i> <a href="https://twitter.com/K_Sabbak">Twitter</a></li>
+				<li><i class="fa fa-file-pdf-o fa-2x fa-fw" aria-hidden="true"></i> <a href="/resources/ksabbak_resume.pdf" download>Resume</a></li>
+			</ul>
+		</div>
+	</nav>
+	<div class="main">
+		<div class="blog-container">
+  <h2 class="blog-title">Yes We're Open / Sorry We're Closed</h2>
+
+  <div class="blog-post">
+    <p class="blog-meta">
+    	<span class="blog-date">June 20, 2018</span>
+    </p>
+    <article>
+      <div class="content post-body">
+
+<p>Starting from the beginning of the SOLID principles is a great way to lure yourself into a false sense of confidence. After all, S stands for <a href="http://ksabbak.com/2018/04/13/Single-Responsibility-Principle-and-Some-Fencing.html">Single Responsibility Principle</a> and while it can be a challenge to follow, it is at least very easy to understand. And then you get to O with the "Open/Closed Principle" you're basically all <br> ????? (╯°□°）╯︵ ┻━┻  ????</p>
+
+
+<p>Same, friends. Let's unpack this much less straightforwardly named principle.</p>
+
+<!--more-->
+
+<p>For an industry that really cares about naming things well, the Open/Closed Principle really seems to stand out to me in its vagueness. It's actually the idea that the things you write should be <em>open</em> to extension, but <em>closed</em> to modification. Essentially if you have to add a new feature, that shouldn't mean going in and ripping apart everything you've already written, nor should you have to go wedge something into already existing code. </p>
+
+<p>Let's pretend you're writing a web framework (for funsies) . A basic thing that happens with the web is you make a GET request and the server responds with a <code>200 OK</code> message, so you decide to throw something like this in your code:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Handler</span> <span class="o">{</span><br data-jekyll-commonmark-ghpages>  <span class="o">...</span><br data-jekyll-commonmark-ghpages><br data-jekyll-commonmark-ghpages>  <span class="kd">public</span> <span class="n">String</span> <span class="nf">getRequest</span><span class="o">(){</span><br data-jekyll-commonmark-ghpages>    <span class="k">return</span> <span class="s">"200 OK"</span><span class="o">;</span><br data-jekyll-commonmark-ghpages>  <span class="o">}</span><br data-jekyll-commonmark-ghpages><span class="o">}</span></code></pre></figure>
+
+<p>Great! But what if we want to mimic the web a bit closer and return <code>404 NOT FOUND</code> if we don't have the wepage. So, for argument's sake, let's say the page we do have is a homepage at "/" but nothing else, so we change the method to look something like:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">String</span> <span class="nf">getRequest</span><span class="o">(</span><span class="n">String</span> <span class="n">path</span><span class="o">){</span><br data-jekyll-commonmark-ghpages>  <span class="k">if</span><span class="o">(</span><span class="n">path</span> <span class="o">==</span> <span class="s">"/"</span><span class="o">){</span><br data-jekyll-commonmark-ghpages>    <span class="k">return</span> <span class="s">"200 OK"</span><span class="o">;</span><br data-jekyll-commonmark-ghpages>  <span class="o">}</span> <span class="k">else</span> <span class="o">{</span><br data-jekyll-commonmark-ghpages>    <span class="k">return</span> <span class="s">"404 NOT FOUND"</span><span class="o">;</span><br data-jekyll-commonmark-ghpages>  <span class="o">}</span><br data-jekyll-commonmark-ghpages><span class="o">}</span></code></pre></figure>
+
+<p>The interesting thing about the Open/Closed Principle is that if this is it and you never have to or want to change your code and it will live on forever as if frozen in amber, then actually you're set. But since most code is forever changing and gaining new features and so on, it's a lot harder to achieve compliance with the Open/Closed Principle. For example, let's say you are super enamored with the 418 joke and want a paths "/short" and "/stout" to return a <code>418 I'M A TEAPOT</code>, now you have to change your method to look like: </p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">String</span> <span class="nf">getRequest</span><span class="o">(</span><span class="n">String</span> <span class="n">path</span><span class="o">){</span><br data-jekyll-commonmark-ghpages>  <span class="k">if</span><span class="o">((</span><span class="n">path</span> <span class="o">==</span> <span class="s">"/"</span><span class="o">))){</span><br data-jekyll-commonmark-ghpages>    <span class="k">return</span> <span class="s">"200 OK"</span><span class="o">;</span><br data-jekyll-commonmark-ghpages>  <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">((</span><span class="n">path</span> <span class="o">==</span> <span class="s">"/short"</span><span class="o">)</span> <span class="o">||</span> <span class="o">(</span><span class="n">path</span> <span class="o">==</span> <span class="s">"/stout"</span><span class="o">))</span> <span class="o">{</span><br data-jekyll-commonmark-ghpages>    <span class="k">return</span> <span class="s">"418 I'M A TEAPOT"</span><span class="o">;</span><br data-jekyll-commonmark-ghpages>  <span class="o">}</span> <span class="k">else</span> <span class="o">{</span><br data-jekyll-commonmark-ghpages>    <span class="k">return</span> <span class="s">"404 NOT FOUND"</span><span class="o">;</span><br data-jekyll-commonmark-ghpages>  <span class="o">}</span><br data-jekyll-commonmark-ghpages><span class="o">}</span></code></pre></figure>
+
+<p>That was not an extension, that was a modification to your handler class. And unlike the first example, we can clearly see now that this is a change that will likely happen again and again in new and exciting forms, causing your code to have to get modified over and over and therefor failing to live up to the ideals of the Open/Closed Principle. What can you do? Well, perhaps instead of one Handler class, filled with methods like <code>getRequest(String path)</code> that keep getting bigger and bigger, we could make a Handler interface </p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">interface</span> <span class="nc">Handler</span> <span class="o">{</span><br data-jekyll-commonmark-ghpages>  <span class="o">...</span><br data-jekyll-commonmark-ghpages><br data-jekyll-commonmark-ghpages>  <span class="kd">public</span> <span class="n">String</span> <span class="nf">getRequest</span><span class="o">(</span><span class="n">String</span> <span class="n">path</span><span class="o">);</span><br data-jekyll-commonmark-ghpages><span class="o">}</span></code></pre></figure>
+
+<p>Now our paths can be classes that implement Handler and instead of <em>modifying</em> an existing class, we're simply just <em>extending</em> our code base with new classes. Very exciting! Apparently the original idea of O/CP was a lot more tied to inheritance and that is also an option, but you have to be careful not to run into violations of the Liskov Substitution Principle, the theme of my next blog post.</p>
+
+</div>
+
+    </article>
+    <p class="blog-meta">
+      <span class="tags">Tags:
+      	
+      		<a href="/tag/solid.html">solid</a>
+      	
+      		<a href="/tag/open-closed-principle.html">open-closed-principle</a>
+      	
+      		<a href="/tag/high-level-design.html">high-level-design</a>
+      	
+      </span>
+     </p>
+  </div>
+  <hr />
+</div>
+
+	</div>
+	<div class="stripe"></div>
+</body>
+</html>
