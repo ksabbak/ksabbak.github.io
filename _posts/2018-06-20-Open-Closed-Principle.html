@@ -1,0 +1,69 @@
+---
+layout: post
+title: Yes We're Open / Sorry We're Closed
+excerpt_separator: <!--more-->
+tags:
+- solid
+- open-closed-principle
+- high-level-design
+---
+<div class="content post-body">
+
+<p>Starting from the beginning of the SOLID principles is a great way to lure yourself into a false sense of confidence. After all, S stands for <a href="http://ksabbak.com/2018/04/13/Single-Responsibility-Principle-and-Some-Fencing.html">Single Responsibility Principle</a> and while it can be a challenge to follow, it is at least very easy to understand. And then you get to O with the "Open/Closed Principle" you're basically all <br> ????? (╯°□°）╯︵ ┻━┻  ????</p>
+
+
+<p>Same, friends. Let's unpack this much less straightforwardly named principle.</p>
+
+<!--more-->
+
+<p>For an industry that really cares about naming things well, the Open/Closed Principle really seems to stand out to me in its vagueness. It's actually the idea that the things you write should be <em>open</em> to extension, but <em>closed</em> to modification. Essentially if you have to add a new feature, that shouldn't mean going in and ripping apart everything you've already written, nor should you have to go wedge something into already existing code. </p>
+
+<p>Let's pretend you're writing a web framework (for funsies) . A basic thing that happens with the web is you make a GET request and the server responds with a <code>200 OK</code> message, so you decide to throw something like this in your code:</p>
+
+{% highlight java %}
+public class Handler {
+  ...
+
+  public String getRequest(){
+    return "200 OK";
+  }
+}
+{% endhighlight %}
+
+<p>Great! But what if we want to mimic the web a bit closer and return <code>404 NOT FOUND</code> if we don't have the wepage. So, for argument's sake, let's say the page we do have is a homepage at "/" but nothing else, so we change the method to look something like:</p>
+
+{% highlight java %}
+public String getRequest(String path){
+  if(path == "/"){
+    return "200 OK";
+  } else {
+    return "404 NOT FOUND";
+  }
+}
+{% endhighlight %}
+
+<p>The interesting thing about the Open/Closed Principle is that if this is it and you never have to or want to change your code and it will live on forever as if frozen in amber, then actually you're set. But since most code is forever changing and gaining new features and so on, it's a lot harder to achieve compliance with the Open/Closed Principle. For example, let's say you are super enamored with the 418 joke and want a paths "/short" and "/stout" to return a <code>418 I'M A TEAPOT</code>, now you have to change your method to look like: </p>
+
+{% highlight java %}
+public String getRequest(String path){
+  if((path == "/"))){
+    return "200 OK";
+  } else if ((path == "/short") || (path == "/stout")) {
+    return "418 I'M A TEAPOT";
+  } else {
+    return "404 NOT FOUND";
+  }
+}
+{% endhighlight %}
+
+<p>That was not an extension, that was a modification to your handler class. And unlike the first example, we can clearly see now that this is a change that will likely happen again and again in new and exciting forms, causing your code to have to get modified over and over and therefor failing to live up to the ideals of the Open/Closed Principle. What can you do? Well, perhaps instead of one Handler class, filled with methods like <code>getRequest(String path)</code> that keep getting bigger and bigger, we could make a Handler interface </p>
+
+{% highlight java %}
+interface Handler {
+  ...
+
+  public String getRequest(String path);
+}
+{% endhighlight %}
+
+<p>Now our paths can be classes that implement Handler and instead of <em>modifying</em> an existing class, we're simply just <em>extending</em> our code base with new classes. Very exciting! Apparently the original idea of O/CP was a lot more tied to inheritance and that is also an option, but you have to be careful not to run into violations of the Liskov Substitution Principle, the theme of my next blog post.</p>
