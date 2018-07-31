@@ -1,0 +1,96 @@
+---
+layout: post
+title: Liskov Substitution Principle Freaky Friday Style
+excerpt_separator: <!--more-->
+tags:
+- liskov-substitution-principle
+- high-level-design
+- fundamentals
+- solid
+---
+<div class="content post-body">
+
+ <p>We have reached the middle of the SOLID principles, the L! Which stands for Liskov Substitution Principle. Well that's super clear, everyone go home. I lied, let's look at what this means: </p>
+
+<blockquote>Subtype Requirement: Let <i>ɸ(x)</i> be a property provable about objects <i>x</i> of type <span style="font-family: serif;">T</span>. Then <i>ɸ(y)</i> should be true for objects <i>y</i> of type <span style="font-family: serif;">S</span> where <span style="font-family: serif;">S</span> is a subtype of <span style="font-family: serif;">T</span>.</blockquote>
+
+<img src="https://media.giphy.com/media/Bzj2ehP7BzSU/giphy.gif" alt="Lindsay Lohan and Jamie Lee Curtis screaming in a sceen of Freaky Friday">
+
+<p>I mean it's not that bad, I guess? The notation is a bit scary, but the idea is that as long as all instances of a class has something that's always going to be the same, then all instances of that class's subclass is going to have to have that same something that's also always the same. But only if it's "provable" aka public (or protected, but not private). Hm. I think Liskov said it better. Let's try again with some examples.</p>
+
+<p>So what we're actually going for here, is that if we use the parent class in our code and then write a child class, any time we use an instance of the parent class, we have to be able to substitute it with an instance of the child class without anything breaking. You don't have to get the same exact results, but your code can't collapse. I'm going to illustrate this with examples from a terrible movie: the 2003 remake of <a href="https://en.wikipedia.org/wiki/Freaky_Friday_(2003_film)">Freaky Friday</a>.</p>
+
+<p>So we have a parent class, Jamie Lee Curtis.</p>
+
+{% highlight ruby %}
+class JamieLeeCurtis; end
+{% endhighlight %}
+
+<p>We have a child class, Lindsay Lohan. </p>
+
+{% highlight ruby %}
+class LindsayLohan < JamieLeeCurtis; end
+{% endhighlight %}
+
+<p>So far so good. Now, early on in the movie, they switch bodies. Which means that every place that the parent class (Jamie Lee Curtis) is used, we get Lindsay Lohan instead. Now, they both have basically the same functionality. Both Jamie Lee Curtis and Linsay Lohan can walk and talk and drive and be a therapist and talk about a book and while Lindsay Lohan is not actually good at most of those things, she's able to perform the tasks.</p>
+
+<div style="float: left; width: 48%;">
+{% highlight ruby %}
+class JamieLeeCurtis
+  def walk()
+    "normally"
+  end
+
+  def talk()
+    "Slightly pretentiously"
+  end
+
+  def psychoanalyze()
+    "well"
+  end
+
+  def drive()
+    "normally"
+  end
+end
+{% endhighlight %}
+</div>
+
+<div style="float: right; width: 48%;">
+{% highlight ruby %}
+class LindsayLohan < JamieLeeCurtis
+  def walk()
+    "normally"
+  end
+
+  def talk()
+    "Like a teen girl"
+  end
+
+  def psychoanalyze()
+    "poorly"
+  end
+
+  def drive()
+    "barely passably"
+  end
+end
+{% endhighlight %}
+</div>
+
+<p>As we can see, so far so good. Maybe we don't want someone who drives like a disaster, but that's why our original code had an instance of the parent class. We can still substitute the child class and it will get from point A to point B. Or, in the code example, it still takes the same argument types and still returns something of the same type.</p>
+
+<p>Now, if you've seen the movie, you can see that after the switch, Lindsey Lohan was able to do everything Jamie Lee Curtis could do (give or take, go with me on this) but when Jamie Lee Curtis </p>
+
+
+
+
+
+
+
+
+
+
+
+
+
