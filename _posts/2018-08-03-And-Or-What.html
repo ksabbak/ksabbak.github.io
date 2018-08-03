@@ -1,0 +1,48 @@
+---
+layout: post
+title: And Or What?
+excerpt_separator: <!--more-->
+tags:
+- pairing
+---
+<div class="content post-body">
+
+<p>Do you remember the post I made about <a href=“http://ksabbak.com/2017/12/22/On-Truthy-And-Falsy.html”>Truthy and Falsy</a> back in December? How I said I understood it? What a sweet, naive child I was. It’s not like anything was wrong with that post, it’s just that there is so much more. </p>
+
+<p>Here’s a little more of that iceberg.</p>
+
+<!--more-->
+
+<p>A few months back, when I was learning Clojure, I came across some interesting information in the docs. Apparently when Clojure computes an <code>&&</code> or an <code>||</code> statement, it doesn’t return <code>true</code> or <code>false</code>, it returns one of the values in the statement. So it could be returning a string, or a number or a list or nil. So it could return <code>true</code> or <code>false</code> too if that is one of the values. It kind of blew my mind. But it shouldn’t have.</p>
+
+<p>One thing that languages that use the concept of “truthy” can do is take “boolean operators” like  <code>and</code> and  <code>or</code> and just, not return booleans. What it does for <code>and</code>s is that the language will return the first false if it’s false and the last true if it’s true. For <code>or</code> it returns the first true if it’s true or the last false if it’s false. It makes sense when you break it down because it returns the last statement that it <em>needs</em> to evaluate. A lot of the time you can just ignore the fact that it returns these things. After all, if you extract the conditional into its own function, the value it returns is still going to have the truthy value you expect even if it’s a string or an array.</p>
+
+<p>Now, for some reason, I took this as a cool Clojure thing and moved on with my life until I ran across it in TypeScript. Now since TypeScript is a statically typed JavaScript (give or take), it does a lot of what JS does. I hadn’t realized that JS did the same thing* with its boolean operators. I realized this when I tried to pull a lengthy conditional into its own named function for clarity and TypeScript yelled at me becaues the return values couldn’t be converted to a boolean.</p>
+
+<p>Here’s a simpler example in TypeScript with react. We’re seeing if a prop is there at all, and then the length of that prop</p>
+
+<code>
+atLeastOneResponse = (): boolean => (
+     (this.props.form.responses && this.props.form.responses.length)
+)
+</code>
+
+<p>The thing is, that’s going to start yelling. <code>this.props.form.responses</code> can either be an array of strings or undefined, while both of those things can be falsy, neither can be false. And <code>this.props.form.responses.length</code> can be a number (which can be falsy if it’s 0 or truthy otherwise) but it can’t ever be true or false. And the code says it returns a boolean so it’s sad that none of those returns are actually booleans. To fix it, we can use the double bang.</p>
+
+<code>
+atLeastOneResponse = (): boolean => (
+     !!(this.props.form.responses && this.props.form.responses.length)
+)
+</code>
+
+<p>The one thing about boolean operators in these circumstances, at least as I’ve seen so far is that while an <code>and</code> or an <code>or</code> doesn’t have to return a boolean, <code>not</code> seems to always return a boolean. I can’t wait until I encounter a language where that’s not the case (</sarcasm>) but in the mean time, I’ll count on ![truthy value] to be false and a ![falsy value] to be true. Therefore !![truthy value] is going to be the boolean true. :tada: </p>
+
+
+<p>But wait there’s more!</p>
+
+<p>Here’s why I feel especially dense. I’ve known for about a year that you could do assignments like this in Ruby: <code>value = hash[:key] || "default”</code> where if there’s no <code>:key</code> key in <code>hash</code> it’ll assign your variable <code>value</code> it to the default. It was one of those fun facts that I just knew worked and didn’t think too hard about until I wrote it backwards by accident and realized the same “first truthy or last falsy” applied here too. It’s also why it’s “dangerous” to use it when the value of your key could potentially be <code>false</code> because that would be evaluated the same as the <code>nil</code> (aka falsy) it would return if there were no key that matched. </p>
+
+<p>This means that kind of assignment can work in any language that follows this pattern. Whether or not it’s idiomatic or a bad idea for other reasons is still worth thinking about, but it’s always nice to know it’s an option. It’s also always nice to know <em>why</em> things work. </p>
+
+
+<p>*Truthy in JavaScript is a party. And by party, I mean it has no coherent rules. Empty objects and arrays are truthy but an empty string is falsy. ¯\_(ツ)_/¯ </p>
