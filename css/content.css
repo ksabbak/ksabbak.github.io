@@ -18,6 +18,10 @@ blockquote {
 	padding-left: 7px;
 }
 
+code {
+	color: solid #fc3592;
+}
+
 .home-header {
 	grid-column: 1;
 	grid-row-start: 1;
